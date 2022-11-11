@@ -14,7 +14,7 @@
 
 body {
   font-family: "Open Sans", sans-serif;
-  background: #f6f9ff;
+  /* background: #f6f9ff; */
   color: #444444;
 }
 
@@ -386,9 +386,11 @@ h6 {
 }
 
 .logo span {
-  font-size: 26px;
+  /* font-size: 22px; */
+  font-size: 32px;
   font-weight: 700;
-  color: #012970;
+  /* color: #012970; */
+  color: #ffffff;
   font-family: "Nunito", sans-serif;
 }
 
