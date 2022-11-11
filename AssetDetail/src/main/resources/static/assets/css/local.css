@@ -1,4 +1,4 @@
-#placeHolder {
+/* #placeHolder {
 	display: none;
 }
 
@@ -49,7 +49,7 @@ h1#heading {
 body {
 	background-color: #ebf1fa;
 	justify-content: center;
-	/* font-family: 'VT323', monospace; */
+	font-family: 'VT323', monospace;
 	font-size: 1.5rem;
 	color: black;
 	margin: 20px;
@@ -64,7 +64,7 @@ h1 {
 	text-align: center;
 }
 
-/* h2 {
+h2 {
 	text-align: center;
 	color: #46a294;
 	font-size: 28px;
@@ -73,9 +73,9 @@ h1 {
 	position: relative;
 	line-height: 58px;
 	font-weight: 400;
-} */
+}
 
-/* h2:before {
+h2:before {
 	content: " ";
 	position: absolute;
 	left: 50%;
@@ -85,7 +85,7 @@ h1 {
 	font-weight: bold;
 	background-color: #2079df;
 	margin-left: -50px;
-} */
+}
 
 label {
 	color: #858585;
@@ -98,7 +98,7 @@ label {
 	font-family: system-ui;
 }
 
-/* stylesheet.css */
+stylesheet.css
 .btn-payment-payment {
   background-color: #175D7B;
   color: white;
@@ -112,7 +112,7 @@ label {
   margin-left: -30px!important;
 }
 
-/* stylesheet.css */
+stylesheet.css
 .btn-enquiry {
   background-color: #EBEBEB;
   color: black;
@@ -124,4 +124,30 @@ label {
   padding-bottom: 4px;
   font-weight: 400;
   margin-right: 10px!important;
+} */
+
+/* .bg {
+  The image used
+  background: url("../../assets/img/Loop-twinkle.gif");	
+  Full height
+  height: 100%; 
+  width:100%;
+
+  Center and scale the image nicely
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+
+.bg1 {
+  The image used
+  background-image: url("../../assets/img/greater-chennai-corporation.jpg");
+  Full height
+  height: 100%; 
+  width:100%;
+
+  Center and scale the image nicely
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+} */

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar" th:fragment="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " th:href="@{/asset/dashboard}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Assets</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a th:href="@{/asset/entry}">
+              <i class="bi bi-circle"></i><span>Assets Entry</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/asset/list}">
+              <i class="bi bi-circle"></i><span>Assets List</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Asset Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Feedback</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a th:href="@{/asset/feedback/creation}">
+              <i class="bi bi-circle"></i><span>Feedback Form Creation</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/asset/feedback/list}">
+              <i class="bi bi-circle"></i><span>Feedback Form List</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Feedback Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Public View</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a th:href="@{/asset/feedback/entry}">
+              <i class="bi bi-circle"></i><span>Feedback Form Entry</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Public View Nav -->
+    </ul>
+
+  </aside><!-- End Sidebar-->
+ </html> 
