@@ -33,34 +33,34 @@
               <h5 class="card-title">Asset Detail Entry</h5>
 
               <!-- <form class="row g-3"> -->
-              <form class="row g-3" th:action="@{/asset/entry}" method="POST" >
+              <form class="row g-3" th:action="@{/asset/entry/submit}" method="POST" th:object="${userObj}">
+				 <div class="col-md-4">
+                  <label for="region" class="form-label">Region</label>
+                  <input type="text" class="form-control" id="region" name="region" th:field="*{region}">
+                </div>  
                 <div class="col-md-4">
                   <label for="zone" class="form-label">Zone</label>
-                  <input type="text" class="form-control" id="zone" name="zone">
-                </div>
-                <div class="col-md-4">
-                  <label for="region" class="form-label">Region</label>
-                  <input type="text" class="form-control" id="region" name="region">
+                  <input type="text" class="form-control" id="zone" name="zone" th:field="*{zone}">
                 </div>
                 <div class="col-md-4">
                   <label for="div" class="form-label">Div</label>
-                  <input type="text" class="form-control" id="div" name="div">
+                  <input type="text" class="form-control" id="div" name="div" th:field="*{div}">
                 </div>
                 <div class="col-4">
                   <label for="assetId" class="form-label">Asset Id</label>
-                  <input type="text" class="form-control" id="assetId" name="assetId">
+                  <input type="text" class="form-control" id="assetId" name="assetId" th:field="*{assetId}">
                 </div>
                 <div class="col-md-4">
                   <label for="assetName" class="form-label">Asset Name</label>
-                  <input type="text" class="form-control" id="assetName" name="assetName">
+                  <input type="text" class="form-control" id="assetName" name="assetName" th:field="*{assetName}">
                 </div>
                 <div class="col-md-4">
                   <label for="assetAddress" class="form-label">Address</label>
-                  <input type="text" class="form-control" id="assetAddress" name="assetAddress">
+                  <input type="text" class="form-control" id="assetAddress" name="assetAddress" th:field="*{assetAddress}">
                 </div>
                 <div class="col-md-4">
                   <label for="assetType" class="form-label">Asset Type</label>
-                  <select id="assetType" class="form-select" name="assetType">
+                  <select id="assetType" class="form-select" name="assetType" th:field="*{assetType}">
                     <option> </option>
                     <option>Park</option>
                     <option>Amma Unavangam</option>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-md-4">
                   <label for="assetDate" class="form-label">Date</label>
-                  <input type="date" class="form-control" id="assetDate" name="assetDate">
+                  <input type="date" class="form-control" id="assetDate" name="assetDate" th:field="*{assetDate}">
                 </div>
                
                 <div class="text-center">

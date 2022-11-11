@@ -20,21 +20,24 @@ public class Asset {
 	public int assetId;
 
 	@Column(name="asset_name")
-	public String asset_name;
+	public String assetName;
 	
 	@Column(name="asset_type")
-	public String asset_type;
+	public String assetType;
 	
 	@Column(name="asset_address")
-	public String asset_address;
+	public String assetAddress;
 	
 	@Column(name="div_no")
-	public String div_no;
+	public String divNo;
 	
 	@Column(name="region")
 	public String region;
 	
 	@Column(name="zone_no")
-	public String zone_no;
+	public String zoneNo;
+	
+	@Column(name="asset_date")
+	public String assetDate;
 	
 }
