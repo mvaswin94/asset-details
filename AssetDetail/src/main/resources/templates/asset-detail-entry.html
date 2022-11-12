@@ -33,44 +33,97 @@
               <h5 class="card-title">Asset Detail Entry</h5>
 
               <!-- <form class="row g-3"> -->
-              <form class="row g-3" th:action="@{/asset/entry/submit}" method="POST" th:object="${userObj}">
+              <form class="row g-3" th:action="@{/asset/entry/submit}" th:object="${assetEntryObj}" method="POST">
 				 <div class="col-md-4">
                   <label for="region" class="form-label">Region</label>
-                  <input type="text" class="form-control" id="region" name="region" th:field="*{region}">
+                   <select th:field="*{region}" id="region" class="form-select" >
+                    <option th:value="''"> </option>
+                    <option th:value="'North'">North</option>
+                    <option th:value="'Central'">Central</option>
+                    <option th:value="'South'">South</option>
+                  </select>
                 </div>  
                 <div class="col-md-4">
                   <label for="zone" class="form-label">Zone</label>
-                  <input type="text" class="form-control" id="zone" name="zone" th:field="*{zone}">
-                </div>
-                <div class="col-md-4">
-                  <label for="div" class="form-label">Div</label>
-                  <input type="text" class="form-control" id="div" name="div" th:field="*{div}">
-                </div>
-                <div class="col-4">
-                  <label for="assetId" class="form-label">Asset Id</label>
-                  <input type="text" class="form-control" id="assetId" name="assetId" th:field="*{assetId}">
-                </div>
-                <div class="col-md-4">
-                  <label for="assetName" class="form-label">Asset Name</label>
-                  <input type="text" class="form-control" id="assetName" name="assetName" th:field="*{assetName}">
-                </div>
-                <div class="col-md-4">
-                  <label for="assetAddress" class="form-label">Address</label>
-                  <input type="text" class="form-control" id="assetAddress" name="assetAddress" th:field="*{assetAddress}">
-                </div>
-                <div class="col-md-4">
-                  <label for="assetType" class="form-label">Asset Type</label>
-                  <select id="assetType" class="form-select" name="assetType" th:field="*{assetType}">
-                    <option> </option>
-                    <option>Park</option>
-                    <option>Amma Unavangam</option>
-                    <option>Public Toilet</option>
+                   <select th:field="*{zoneNo}" id="zoneNo" class="form-select" >
+                    <option th:value="''"> </option>
+                    <option th:value="'01'">01</option>
+                    <option th:value="'02'">02</option>
+                    <option th:value="'03'">03</option>
+                    <option th:value="'04'">04</option>
+                    <option th:value="'05'">05</option>
+                    <option th:value="'06'">06</option>
+                    <option th:value="'07'">07</option>
+                    <option th:value="'08'">08</option>
+                    <option th:value="'09'">09</option>
+                    <option th:value="'10'">10</option>
+                    <option th:value="'11'">11</option>
+                    <option th:value="'12'">12</option>
+                    <option th:value="'13'">13</option>
+                    <option th:value="'14'">14</option>
+                    <option th:value="'15'">15</option>
                   </select>
                 </div>
                 <div class="col-md-4">
-                  <label for="assetDate" class="form-label">Date</label>
-                  <input type="date" class="form-control" id="assetDate" name="assetDate" th:field="*{assetDate}">
+                  <label for="div" class="form-label">Div</label>
+                   <select th:field="*{divNo}" id="divNo" class="form-select">
+                    <option th:value="''"> </option>
+                    <option th:value="'001'">001</option>
+                    <option th:value="'002'">002</option>
+                    <option th:value="'003'">003</option>
+                    <option th:value="'004'">004</option>
+                    <option th:value="'005'">005</option>
+                    <option th:value="'006'">006</option>
+                    <option th:value="'007'">007</option>
+                    <option th:value="'008'">008</option>
+                    <option th:value="'009'">009</option>
+                    <option th:value="'010'">010</option>
+                    <option th:value="'011'">011</option>
+                    <option th:value="'012'">012</option>
+                    <option th:value="'013'">013</option>
+                    <option th:value="'014'">014</option>
+                    <option th:value="'015'">015</option>
+                  </select>
                 </div>
+                <div class="col-4">
+                  <label for="assetId" class="form-label">Asset Id</label>
+                  <input type="text" class="form-control" id="assetId" th:field="*{assetId}">
+                </div>
+                <div class="col-md-4">
+                  <label for="assetName" class="form-label">Asset Name</label>
+                  <input type="text" class="form-control" id="assetName" th:field="*{assetName}">
+                </div>
+                <div class="col-md-4">
+                  <label for="assetAddress" class="form-label">Address</label>
+                  <input type="text" class="form-control" id="assetAddress" th:field="*{assetAddress}">
+                </div>
+                <div class="col-md-4">
+                  <label for="assetType" class="form-label">Asset Type</label>
+                  <select id="assetType" class="form-select" th:field="*{assetType}">
+                    <option th:value="''"> </option>
+                    <option th:value="'Park'">Park</option>
+                    <option th:value="'Amma Unavangam'">Amma Unavangam</option>
+                    <option th:value="'Public Toilet'">Public Toilet</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="assetDate" class="form-label">Park Timing (From)</label>
+                  <input type="time" class="form-control" id="assetTimingFrom" th:field="*{assetTimingFrom}">
+                </div>
+                <div class="col-md-4">
+                  <label for="assetDate" class="form-label">Park Timing (To)</label>
+                  <input type="time" class="form-control" id="assetTimingTo" th:field="*{assetTimingTo}">
+                </div>
+                <div class="col-md-4">
+                  <label for="assetDate" class="form-label">Date</label>
+                  <input type="date" class="form-control" id="assetDate" th:field="*{assetDate}">
+                </div>
+                <div class="col-5">
+                  <label for="inputNumber" class="col-sm-4 col-form-label">File</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="file" id="assetFile" th:field="*{assetFile}">
+                  </div>
+                </div> 
                
                 <div class="text-center">
                   <button type="submit" class="btn btn-primary">Submit</button>

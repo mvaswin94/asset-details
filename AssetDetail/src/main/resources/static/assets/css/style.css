@@ -386,11 +386,9 @@ h6 {
 }
 
 .logo span {
-  /* font-size: 22px; */
-  font-size: 32px;
+  font-size: 22px;
   font-weight: 700;
-  /* color: #012970; */
-  color: #ffffff;
+  color: #012970;
   font-family: "Nunito", sans-serif;
 }
 

@@ -1,5 +1,7 @@
 package com.asset.asset;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +19,16 @@ public class Asset {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="asset_id")
-	public int assetId;
+	public long assetId;
+	
+	@Column(name="region")
+	public String region;
+
+	@Column(name="zone_no")
+	public String zoneNo;
+	
+	@Column(name="div_no")
+	public String divNo;
 
 	@Column(name="asset_name")
 	public String assetName;
@@ -28,16 +39,16 @@ public class Asset {
 	@Column(name="asset_address")
 	public String assetAddress;
 	
-	@Column(name="div_no")
-	public String divNo;
+	@Column(name="asset_timing_from")
+	public String assetTimingFrom;
 	
-	@Column(name="region")
-	public String region;
-	
-	@Column(name="zone_no")
-	public String zoneNo;
+	@Column(name="asset_timing_to")
+	public String assetTimingTo;
 	
 	@Column(name="asset_date")
-	public String assetDate;
+	public Date assetDate;
+	
+	@Column(name="asset_file")
+	public String assetFile;
 	
 }
