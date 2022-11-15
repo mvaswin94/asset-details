@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<!-- head tag -->
+<div th:replace="/fragment/Head.html::head"></div>
+
+<script>
+		$( document ).ready(function() {
+			$("qrCodeDiv").hide();
+		});
+		function generate() {
+			$("qrCodeDiv").show();
+			var typeNumber = 4;
+			var errorCorrectionLevel = 'L';
+			var qr = qrcode(typeNumber, errorCorrectionLevel);
+			var inputText = document.getElementById('assetId').value;
+			qr.addData(inputText);
+			qr.make();
+			document.getElementById('placeHolder').innerHTML = qr.createImgTag();
+			canvasScreen();
+		}
+		downloadQrCode = function(el) {
+			var canvas = document.getElementById("myCanvas");
+			var image = canvas.toDataURL("image/png");
+			el.href = image;
+		};
+		function canvasScreen() {
+			var a = document.getElementsByTagName("img")[2];
+			a.setAttribute("id", "qrcode");
+			var canvas = document.getElementById("myCanvas");
+			var ctx = canvas.getContext("2d");
+			var img = document.getElementById("qrcode");
+			ctx.drawImage(img, 70, 0, 150, 150);
+			document.getElementById("dBtn").style.display = "block";
+		}
+		function addAssetId($this) {
+			var typevalue = $this.value;
+			var tempURL = "asset_feedback/asset_feedback_form.jsp?assetId='"+ typevalue + "'";
+			$('#url').val(tempURL);
+		}
+		
+</script>
+
+<body>
+
+	<!-- header tag -->
+	<div th:replace="/fragment/Header.html::header"></div>
+
+	<!-- sidebar tag -->
+	<div th:replace="/fragment/SideBar.html::sidebar"></div>
+
+	<main id="main" class="main">
+
+		<div class="pagetitle">
+			<h1>Asset</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+					<li class="breadcrumb-item">Asset</li>
+					<li class="breadcrumb-item active">Feedback List</li>
+				</ol>
+			</nav>
+		</div>
+		<!-- End Page Title -->
+
+		<section class="section">
+			<div class="row">
+			<div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Feedback Form Creation</h5>
+
+              <!-- <form class="row g-3"> -->
+              <form class="row g-3" th:action="@{/asset/feedback/qrcode/submit}" th:object="${qrCodeObj}" method="POST" >
+                <div class="col-4">
+                  <label for="assetId" class="form-label">Asset Id</label>
+                  <input type="text" class="form-control" id="assetId" th:field="*{assetId}">
+                </div>
+                
+                <div class="col-md-4">
+                  <label for="assetType" class="form-label">Asset Type</label>
+                  <select id="assetType" class="form-select" th:field="*{assetType}">
+                    <option th:value="''"> </option>
+                    <option th:value="'Park'">Park</option>
+                    <option th:value="'Amma Unavangam'">Amma Unavangam</option>
+                    <option th:value="'Public Toilet'">Public Toilet</option>
+                  </select>
+                </div>
+                
+                <div class="col-6"> </div>
+                
+                <input type="text" class="form-control" id="url" name="url" hidden>
+                
+                <div class="text-center">
+                  <button type="button" class="btn btn-success" onclick="generate();">Generate QR</button>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+              </form><!-- End Multi Columns Form -->
+
+            </div>
+          </div>
+          
+        <div class="row" id="qrCodeDiv">
+		<div class="col-sm-5"></div>
+			<div class="col-sm-2">
+				<div class="card">
+					<div id="dBtn">
+							<!-- <div class="jumbotron mx-auto w-75 border my-4 py-4 text-center" id="dBtn"> -->
+						<div id="placeHolder"></div>
+							<canvas id="myCanvas"> </canvas>
+							<br> 
+							<div class="text-center">
+							<button type="button" class="btn btn-danger btn-lg" onclick="javascript: downloadQrCode();" download="QRcode.png">Download</button>
+							</div>
+							<!-- <a href="#" class="btn btn-danger btn-lg" onclick="downloadQrCode(this);" download="QRcode.png"> Download </a> -->
+						</div>
+					</div>
+				</div>
+			<div class="col-sm-5"></div>
+		</div>	
+          
+			</div>
+		</section>
+
+	</main>
+	<!-- End #main -->
+
+	<!-- Footer -->
+	<div th:replace="/fragment/Footer.html::footer	"></div>
+
+	<!-- Go to Top -->
+	<a href="#"
+		class="back-to-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
+
+	<!-- Footer -->
+	<div th:replace="/fragment/Js.html::js"></div>
+	
+</body>
+
+</html>
