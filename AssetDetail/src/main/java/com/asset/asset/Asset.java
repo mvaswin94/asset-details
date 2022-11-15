@@ -17,9 +17,9 @@ import lombok.Data;
 public class Asset {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="asset_id")
-	public long assetId;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="asset_id", nullable=false)
+	public Integer assetId;
 	
 	@Column(name="region")
 	public String region;
