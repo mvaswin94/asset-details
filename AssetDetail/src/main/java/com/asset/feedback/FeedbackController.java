@@ -67,9 +67,11 @@ public class FeedbackController {
 		return "asset-feedback-list";
 	}
 	
-	@RequestMapping(value = "/entry", method = RequestMethod.GET)
-	public String feednbackEntry() {
-		//System.out.println("TEST NOW");
-		return "asset-feedback-creation";
+	@GetMapping(value = "/entry")
+	public String feednbackFormEntry(Model model, @PageableDefault(size = 1000) Pageable pageable) {
+		Page<Feedback> obj = feedbackRepo.findAll(pageable);
+		model.addAttribute("page", obj);
+		System.out.println("obj"+obj);
+		return "asset-feedback-form";
 	}
 }

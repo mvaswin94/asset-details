@@ -42,18 +42,17 @@ public class AssetController {
 		Asset obj = new Asset();
 
 		obj.setAssetId(asset.getAssetId());
-		obj.setRegion(asset.getRegion());
 		obj.setZoneNo(asset.getZoneNo());
 		obj.setDivNo(asset.getDivNo());
-		obj.setAssetName(asset.getAssetName());
 		obj.setAssetType(asset.getAssetType());
+		obj.setAssetName(asset.getAssetName());
 		obj.setAssetAddress(asset.getAssetAddress());
-		obj.setAssetTimingFrom(asset.getAssetTimingFrom());
-		obj.setAssetTimingTo(asset.getAssetTimingTo());
-		obj.setAssetDate(asset.getAssetDate());
+		obj.setAssetOpeningTime(asset.getAssetOpeningTime());
+		obj.setAssetClosingTime(asset.getAssetClosingTime());
+		obj.setAssetArea(asset.getAssetArea());
+		obj.setAssetLocality(asset.getAssetLocality());
+		obj.setAssetStreet(asset.getAssetStreet());
 		obj.setAssetFile(asset.getAssetFile());
-
-		/* System.out.println("OBJ---:"+obj); */
 		
 		assetRepo.saveAndFlush(obj);
 

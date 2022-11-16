@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<!-- head tag -->
+<div th:replace="/fragment/Head.html::head"></div>
+
+<body>
+	
+	<!-- header tag -->
+  	<div th:replace="/fragment/Header.html::header"></div>
+
+	<!-- sidebar tag -->
+  	<div th:replace="/fragment/SideBar.html::sidebar"></div>
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Asset</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Master</li>
+          <li class="breadcrumb-item active">Master List</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+          
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Asset Detail List</h5>
+
+              <!-- Table with hoverable rows -->
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Sl.No.</th>
+                    <th scope="col">Master ID</th>
+                    <th scope="col">Master Name</th>
+                    <th scope="col">Master Date </th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="obj,iterator : ${page}">
+                    <td th:text="${iterator.count}"></td>
+                    <td th:text="${obj.masterId}" th:attr="data-masterId=${obj.masterId}"></td>
+                    <td th:text="${obj.masterName}" th:attr="data-masterName=${obj.masterName}"></td>
+                    <td th:text="${obj.masterDate}" th:attr="data-masterDate=${obj.masterDate}"></td>
+                    <td><a th:href="@{'/asset/master/edit/'+ ${obj.masterId}}"><i class="bi bi-pen"></i></a></td> 
+                  </tr>
+                </tbody>
+              </table>
+              <!-- End Table with hoverable rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+<!-- Footer -->	
+	<div th:replace="/fragment/Footer.html::footer	"></div>
+
+<!-- Go to Top -->
+	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Footer -->	
+	<div th:replace="/fragment/Js.html::js"></div>
+
+</body>
+
+</html>

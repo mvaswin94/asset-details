@@ -21,34 +21,36 @@ public class Asset {
 	@Column(name="asset_id", nullable=false)
 	public Integer assetId;
 	
-	@Column(name="region")
-	public String region;
-
 	@Column(name="zone_no")
 	public String zoneNo;
 	
 	@Column(name="div_no")
 	public String divNo;
+	
+	@Column(name="asset_type")
+	public String assetType;
 
 	@Column(name="asset_name")
 	public String assetName;
 	
-	@Column(name="asset_type")
-	public String assetType;
-	
 	@Column(name="asset_address")
 	public String assetAddress;
 	
-	@Column(name="asset_timing_from")
-	public String assetTimingFrom;
+	@Column(name="asset_opening_time")
+	public String assetOpeningTime;
 	
-	@Column(name="asset_timing_to")
-	public String assetTimingTo;
+	@Column(name="asset_closing_time")
+	public String assetClosingTime;
 	
-	@Column(name="asset_date")
-	public Date assetDate;
+	@Column(name="asset_area")
+	public String assetArea;
+	
+	@Column(name="asset_locality")
+	public String assetLocality;
+	
+	@Column(name="asset_street")
+	public String assetStreet;
 	
 	@Column(name="asset_file")
 	public String assetFile;
-	
 }
