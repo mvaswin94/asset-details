@@ -395,73 +395,34 @@
 
               <!-- Table with hoverable rows -->
               <table class="table table-hover table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col">Sl.No.</th>
-                    <th scope="col">Zone</th>
-                    <th scope="col">Region</th>
-                    <th scope="col">Div</th>
-                    <th scope="col">Asset Id</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">QR Code</th>
-                    <th scope="col">File</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>01</td>
-                    <td>Region 1</td>
-                    <td>Div 1</td>
-                    <td>1000</td>
-                    <td>07-11-2022</td>
-                    <td class="d-flex align-items-center justify-content-center"><a href="#"><i class="bi bi-qr-code"></i></a></td>
-                    <td><a href="#"><i class="bi bi-download"></i></a></td>
-                    
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>01</td>
-                    <td>Region 1</td>
-                    <td>Div 1</td>
-                    <td>1000</td>
-                    <td>07-11-2022</td>
-                    <td class="d-flex align-items-center justify-content-center"><a href="#"><i class="bi bi-qr-code"></i></a></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>01</td>
-                    <td>Region 1</td>
-                    <td>Div 1</td>
-                    <td>1000</td>
-                    <td>07-11-2022</td>
-                    <td class="d-flex align-items-center justify-content-center"><a href="#"><i class="bi bi-qr-code"></i></a></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>01</td>
-                    <td>Region 1</td>
-                    <td>Div 1</td>
-                    <td>1000</td>
-                    <td>07-11-2022</td>
-                    <td class="d-flex align-items-center justify-content-center"><a href="#"><i class="bi bi-qr-code"></i></a></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>01</td>
-                    <td>Region 1</td>
-                    <td>Div 1</td>
-                    <td>1000</td>
-                    <td>07-11-2022</td>
-                    <td class="d-flex align-items-center justify-content-center"><a href="#"><i class="bi bi-qr-code"></i></a></td>
-                    <td><a href="#"><i class="bi bi-download"></i></a></td>
-                  </tr>
-                </tbody>
-              </table>
-              <!-- End Table with hoverable rows -->
+								<thead>
+									<tr>
+										<th scope="col">Sl.No.</th>
+										<th scope="col">Region</th>
+										<th scope="col">Zone</th>
+										<th scope="col">Div</th>
+										<th scope="col">Feedback Form Id</th>
+										<th scope="col">Asset Id</th>
+										<th scope="col">Asset Type</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="obj,iterator : ${page}">
+										<td th:text="${iterator.count}"></td>
+										<!-- <td th:text="${obj.region}" th:attr="data-region=${obj.region}"></td>
+										<td th:text="${obj.zoneNo}" th:attr="data-zoneNo=${obj.zoneNo}"></td>
+                    					<td th:text="${obj.divNo}" th:attr="data-divNo=${obj.divNo}"></td> -->
+                    					<td></td>
+                    					<td></td>
+                    					<td></td>
+                    					<td th:text="${obj.feedbackQuestionId}" th:attr="data-feedbackQuestionId=${obj.feedbackQuestionId}"></td>
+                    					<td th:text="${obj.assetId}" th:attr="data-assetId=${obj.assetId}"></td>
+                    					<td th:text="${obj.assetType}" th:attr="data-assetType=${obj.assetType}"></td>
+                    					<td><a href="#"><i class="bi bi-pen"></i></a></td> 
+									</tr>
+								</tbody>
+							</table>
 
             </div>
           </div>

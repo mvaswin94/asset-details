@@ -13,25 +13,6 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Master</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>Master Entry</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>Master List</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-      <!-- End Master Nav -->
-      
-      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Assets</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -60,13 +41,18 @@
             </a>
           </li>
           <li>
+            <a th:href="@{/asset/feedback/qrcode}">
+              <i class="bi bi-circle"></i><span>QR Code Generation</span>
+            </a>
+          </li>
+          <li>
             <a th:href="@{/asset/feedback/list}">
               <i class="bi bi-circle"></i><span>Feedback Form List</span>
             </a>
           </li>
         </ul>
       </li><!-- End Feedback Nav -->
-
+      
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Public View</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -79,6 +65,48 @@
           </li>
         </ul>
       </li><!-- End Public View Nav -->
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-card-list"></i><span>Master</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a th:href="@{/asset/master/entry}">
+              <i class="bi bi-circle"></i><span>Master Entry</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/asset/master/list}">
+              <i class="bi bi-circle"></i><span>Master List</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Charts Nav -->
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-mailbox"></i><span>Complaints</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Complaints Register</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Complaints Tracking</span>
+            </a>
+          </li>
+          <!-- <li>
+            <a href="icons-boxicons.html">
+              <i class="bi bi-circle"></i><span>Boxicons</span>
+            </a>
+          </li> -->
+        </ul>
+      </li><!-- End Icons Nav -->
+      
     </ul>
 
   </aside><!-- End Sidebar-->
