@@ -34,19 +34,28 @@
 
               <!-- <form class="row g-3"> -->
               <form class="row g-3" th:action="@{/asset/feedback/creation/submit}" th:object="${feedbackFormCreationObj}" method="POST" >
-                <div class="col-4">
-                  <label for="assetId" class="form-label">Asset Id</label>
-                  <input type="text" class="form-control" id="assetId" th:field="*{assetId}">
-                </div>
-                
                 <div class="col-md-4">
                   <label for="assetType" class="form-label">Asset Type</label>
                   <select id="assetType" class="form-select" th:field="*{assetType}">
-                    <option th:value="''"> </option>
+                    <option th:value="''">---Select Asset Type---</option>
                     <option th:value="'Park'">Park</option>
                     <option th:value="'Amma Unavangam'">Amma Unavangam</option>
                     <option th:value="'Public Toilet'">Public Toilet</option>
                   </select>
+                </div>
+                
+                <div class="col-md-4">
+                  <label for="questionType" class="form-label">Question Type</label>
+                  <select id="questionType" class="form-select" th:field="*{assetType}">
+                    <option th:value="''">---Select Question Type---</option>
+                    <option th:value="'YesNo'">Yes/No</option>
+                    <option th:value="'GoodAverageBad'">Good/Average/Bad</option>
+                  </select>
+                </div>
+                
+                <div class="col-4">
+                  <label for="assetId" class="form-label">Asset Id</label>
+                  <input type="text" class="form-control" id="assetId" th:field="*{assetId}">
                 </div>
                 
                 <div class="col-6"> </div>

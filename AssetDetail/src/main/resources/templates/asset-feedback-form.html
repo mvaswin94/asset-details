@@ -19,13 +19,51 @@
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-					<li class="breadcrumb-item">Asset</li>
+					<li class="breadcrumb-item">Public View</li>
 					<li class="breadcrumb-item active">Feedback Form</li>
 				</ol>
 			</nav>
 		</div>
 		<!-- End Page Title -->
+<form  th:action="@{/asset/feedback/form/submit}" method="POST">
+		<section class="section">
+      <div class="row">
+        <div class="col-lg-12">
 
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Mobile Number Verification</h5>
+
+              <!-- <form class="row g-3"> -->
+              
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="mobileNo" class="form-label">Mobile No.</label>
+                  <input type="number" class="form-control" id="mobileNo" >
+                </div>
+                <div class="col-md-2">
+                <label for="mobileNo" class="form-label"></label>
+                <button type="button" class="btn btn-primary">Send OTP</button>
+                </div>
+                <div class="col-md-4">
+                  <label for="otp" class="form-label">OTP</label>
+                  <input type="number" class="form-control" id="otp" >
+                </div>
+                <div class="col-md-2">
+                <label for="mobileNo" class="form-label"></label>
+                <button type="button" class="btn btn-success">Verify OTP</button>
+                </div>
+                <div class="text-center">
+                </div>
+              </div><!-- End Multi Columns Form -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    
 		<section class="section">
 			<div class="row">
 
@@ -47,16 +85,44 @@
 								<tbody>
 									<tr th:each="obj,iterator : ${page}">
 										<td th:text="${iterator.count}"></td>
-										<td th:text="${obj.question}"
-											th:attr="data-question=${obj.question}"></td>
+										<td th:text="${obj.question}" th:attr="data-question=${obj.question}"></td>
+										
+										<td>
+											<span th:if="${obj.questionType}=='YesNo'">
+											<fieldset id="yesNo">
+											<input class="form-check-input" type="radio" name="feedback" id="feedback" value="yes">
+                      							<label class="form-check-label" for="feedback1">
+                        							Yes
+                      							</label>
+                      						<input class="form-check-input" type="radio" name="feedback" id="feedback" value="no">
+                      							<label class="form-check-label" for="feedback2">
+                        							No
+                      							</label>
+                      						</fieldset>	
+											</span>
+											
+											<span th:if="${obj.questionType}=='GoodAverageBad'">
+											<fieldset id="goodAverageBad">
+											<input class="form-check-input" type="radio" name="feedback" id="feedback" value="good">
+                      							<label class="form-check-label" for="GoodAverageBad1">
+                        							Good
+                      							</label>
+                      						<input class="form-check-input" type="radio" name="feedback" id="feedback" value="average">
+                      							<label class="form-check-label" for="GoodAverageBad2">
+                        							Bad
+                      							</label>
+                      						<input class="form-check-input" type="radio" name="feedback" id="feedback" value="bad">
+                      							<label class="form-check-label" for="GoodAverageBad3">
+                        							Average
+                      							</label>
+                      						</fieldset>			
+											</span>
+										</td>
 										<!-- <td>
 										<a href="#"><i class="bi bi-pen"></i></a>
 										</td> -->
-										<td>
-											<!-- <div class="form-check">
-												<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios">
-												
-											</div> --> <select class="form-select"
+										<!-- <td>
+										 <select class="form-select"
 											aria-label="Default select example">
 												<option selected></option>
 												<option value="1">Yes</option>
@@ -65,12 +131,17 @@
 												<option value="4">Bad</option>
 												<option value="5">Average</option>
 										</select>
-
-										</td>
+										</td> -->
 									</tr>
 								</tbody>
 							</table>
 
+							<div class="col-5">
+                  				<label for="inputNumber" class="col-sm-4 col-form-label">File</label>
+                  				<div class="col-sm-10">
+                    				<input class="form-control" type="file" id="feedbackFormFile">
+                  				</div>
+                			</div>	 
 							<div class="text-center">
 								<button type="submit" class="btn btn-primary">Submit</button>
 								<button type="reset" class="btn btn-secondary">Reset</button>
@@ -79,179 +150,10 @@
 						</div>
 					</div>
 
-					<!-- <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Bordered Table</h5>
-              <p>Add <code>.table-bordered</code> for borders on all sides of the table and cells.</p>
-              Bordered Table
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Position</th>
-                    <th scope="col">Age</th>
-                    <th scope="col">Start Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                    <td>2016-05-25</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Bridie Kessler</td>
-                    <td>Developer</td>
-                    <td>35</td>
-                    <td>2014-12-05</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Ashleigh Langosh</td>
-                    <td>Finance</td>
-                    <td>45</td>
-                    <td>2011-08-12</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Angus Grady</td>
-                    <td>HR</td>
-                    <td>34</td>
-                    <td>2012-06-11</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Raheem Lehner</td>
-                    <td>Dynamic Division Officer</td>
-                    <td>47</td>
-                    <td>2011-04-19</td>
-                  </tr>
-                </tbody>
-              </table>
-              End Bordered Table
-
-              <p><a href="https://getbootstrap.com/docs/5.0/utilities/borders/#border-color" target="_blank">Border color utilities</a> can be added to change colors:</p>
-
-              Primary Color Bordered Table
-              <table class="table table-bordered border-primary">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Position</th>
-                    <th scope="col">Age</th>
-                    <th scope="col">Start Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                    <td>2016-05-25</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Bridie Kessler</td>
-                    <td>Developer</td>
-                    <td>35</td>
-                    <td>2014-12-05</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Ashleigh Langosh</td>
-                    <td>Finance</td>
-                    <td>45</td>
-                    <td>2011-08-12</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Angus Grady</td>
-                    <td>HR</td>
-                    <td>34</td>
-                    <td>2012-06-11</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Raheem Lehner</td>
-                    <td>Dynamic Division Officer</td>
-                    <td>47</td>
-                    <td>2011-04-19</td>
-                  </tr>
-                </tbody>
-              </table>
-              End Primary Color Bordered Table
-
-            </div>
-          </div> -->
-
-					<!-- <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Small tables</h5>
-              <p>Add <code>.table-sm</code> to make any <code>.table</code> more compact by cutting all cell padding in half.</p>
-              Small tables
-              <table class="table table-sm">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Position</th>
-                    <th scope="col">Age</th>
-                    <th scope="col">Start Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                    <td>2016-05-25</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Bridie Kessler</td>
-                    <td>Developer</td>
-                    <td>35</td>
-                    <td>2014-12-05</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Ashleigh Langosh</td>
-                    <td>Finance</td>
-                    <td>45</td>
-                    <td>2011-08-12</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Angus Grady</td>
-                    <td>HR</td>
-                    <td>34</td>
-                    <td>2012-06-11</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Raheem Lehner</td>
-                    <td>Dynamic Division Officer</td>
-                    <td>47</td>
-                    <td>2011-04-19</td>
-                  </tr>
-                </tbody>
-              </table>
-              End small tables
-
-            </div>
-          </div> -->
-
 				</div>
 			</div>
 		</section>
-
+</form>
 	</main>
 	<!-- End #main -->
 

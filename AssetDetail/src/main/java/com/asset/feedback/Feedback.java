@@ -29,5 +29,8 @@ public class Feedback {
 		
 		@Column(name="question")
 		public String question;
+		
+		@Column(name="question_type")
+		public String questionType;
 
 	}

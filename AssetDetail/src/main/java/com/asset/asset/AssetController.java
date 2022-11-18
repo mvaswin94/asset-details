@@ -1,6 +1,8 @@
 package com.asset.asset;
 
 import java.sql.Date;
+import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Column;
 
@@ -12,10 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.asset.master.Master;
+import com.asset.master.MasterRepository;
 
 @Controller
 @RequestMapping(value = "/asset")
@@ -23,16 +29,17 @@ public class AssetController {
 
 	@Autowired
 	AssetRepository assetRepo;
+	
+	@Autowired
+	MasterRepository masterRepo;
 
-	/*
-	 * public AssetController(AssetRepository repo) { this.repo = repo; }
-	 */
-
-	// @RequestMapping(value = "/entry", method = RequestMethod.GET)
 	@GetMapping(value = "entry")
 	public String assetEntry(Model model) {
-		// System.out.println("TEST NOW");
 		model.addAttribute("assetEntryObj", new Asset());
+		
+		List<Master> obj = masterRepo.findAll();
+		model.addAttribute("masterObj", obj);
+		
 		return "asset-detail-entry";
 	}
 
@@ -69,6 +76,32 @@ public class AssetController {
 	public String assetList(Model model, @PageableDefault(size = 1000) Pageable pageable) {
 		Page<Asset> obj = assetRepo.findAll(pageable);
 		model.addAttribute("page", obj);
+		
+		model.addAttribute("assetSearchObj", new Asset());
+
+		System.out.println("OBJ---:"+obj);
+		return "asset-detail-list";
+	}
+	
+	@GetMapping(value = "/list/edit/{assetId}")
+	public String proMasterClientListGet(@PathVariable Integer assetId, Model model) {
+
+		new Asset();
+		Optional<Asset> asset = assetRepo.findById(assetId);
+		Asset assetObj = asset.get();
+		model.addAttribute("assetEntryObj", assetObj);
+		
+		System.out.println("assetObj---:"+assetObj);
+		return "asset-detail-entry";
+		
+	}
+	
+	@GetMapping(value = "/list/search")
+	public String assetListSearch(Model model,@PageableDefault(size = 1000) Pageable pageable) {
+		Page<Asset> obj = assetRepo.findAll(pageable);
+		model.addAttribute("page", obj);
+		
+		model.addAttribute("assetSearchObj", new Asset());
 
 		System.out.println("OBJ---:"+obj);
 		return "asset-detail-list";

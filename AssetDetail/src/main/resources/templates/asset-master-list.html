@@ -31,7 +31,7 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Asset Detail List</h5>
+              <h5 class="card-title">Master List</h5>
 
               <!-- Table with hoverable rows -->
               <table class="table table-hover table-bordered">
@@ -40,7 +40,6 @@
                     <th scope="col">Sl.No.</th>
                     <th scope="col">Master ID</th>
                     <th scope="col">Master Name</th>
-                    <th scope="col">Master Date </th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -49,13 +48,17 @@
                     <td th:text="${iterator.count}"></td>
                     <td th:text="${obj.masterId}" th:attr="data-masterId=${obj.masterId}"></td>
                     <td th:text="${obj.masterName}" th:attr="data-masterName=${obj.masterName}"></td>
-                    <td th:text="${obj.masterDate}" th:attr="data-masterDate=${obj.masterDate}"></td>
-                    <td><a th:href="@{'/asset/master/edit/'+ ${obj.masterId}}"><i class="bi bi-pen"></i></a></td> 
+                    <!-- <td th:text="${obj.masterCharacteristic}" th:attr="data-masterName=${obj.masterCharacteristic}"></td>
+                    <td th:text="${obj.masterQuestion}" th:attr="data-masterQuestion=${obj.masterQuestion}"></td>
+                    <td th:text="${obj.masterQuestionType}" th:attr="data-masterName=${obj.masterQuestionType}"></td> -->
+                    <td>
+                    	<a th:href="@{'/asset/master/list/edit/'+ ${obj.masterId}}"><i class="bi bi-pen"></i></a>
+                    	<a th:href="@{'/asset/master/list/delete/'+ ${obj.masterId}}"><i class="bi bi-trash"></i></a>	
+                    </td> 
                   </tr>
                 </tbody>
               </table>
               <!-- End Table with hoverable rows -->
-
             </div>
           </div>
 
