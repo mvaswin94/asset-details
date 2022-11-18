@@ -55,8 +55,8 @@
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-					<li class="breadcrumb-item">Asset</li>
-					<li class="breadcrumb-item active">Feedback List</li>
+					<li class="breadcrumb-item">Feedback</li>
+					<li class="breadcrumb-item active">QR Code Generation</li>
 				</ol>
 			</nav>
 		</div>
@@ -66,7 +66,7 @@
 			<div class="row">
 			<div class="card">
             <div class="card-body">
-              <h5 class="card-title">Feedback Form Creation</h5>
+              <h5 class="card-title">QR Code Generation</h5>
 
               <!-- <form class="row g-3"> -->
               <form class="row g-3" th:action="@{/asset/feedback/qrcode/submit}" th:object="${qrCodeObj}" method="POST" >

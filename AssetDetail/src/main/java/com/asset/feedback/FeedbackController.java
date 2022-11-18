@@ -35,7 +35,7 @@ public class FeedbackController {
 		obj.setAssetId(feedback.getAssetId());
 		obj.setAssetType(feedback.getAssetType());
 		obj.setQuestion(feedback.getQuestion());
-		
+		obj.setQuestionType(feedback.getQuestionType());
 		feedbackRepo.saveAndFlush(obj);
 
 		return "redirect:/asset/feedback/creation";
@@ -52,7 +52,6 @@ public class FeedbackController {
 	public String qrCodeSubmit(Model model, @PageableDefault(size = 1000) Pageable pageable) {
 		Page<Feedback> obj = feedbackRepo.findAll(pageable);
 		model.addAttribute("page", obj);
-		
 		model.addAttribute("qrCodeObj", new Feedback());
 
 		return "asset-feedback-qrcode";

@@ -4,6 +4,29 @@
 <!-- head tag -->
 <div th:replace="/fragment/Head.html::head"></div>
 
+<script>
+var x = document.getElementById("assetGeoLocation");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+	var lat=position.coords.latitude;
+	var lon=position.coords.longitude;
+	
+	$("#assetGeoLocation").val(lat);
+ 
+	/* x.innerHTML = "Latitude: " + position.coords.latitude +  "<br>Longitude: " + position.coords.longitude; */
+  
+  
+}
+</script>
+
 <body>
 	
 	<!-- header tag -->
@@ -24,6 +47,8 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
+    
+ <form th:action="@{/asset/entry/submit}" th:object="${assetEntryObj}" method="POST">   
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
@@ -33,7 +58,7 @@
               <h5 class="card-title">Asset Detail Entry</h5>
 
               <!-- <form class="row g-3"> -->
-              <form class="row g-3" th:action="@{/asset/entry/submit}" th:object="${assetEntryObj}" method="POST">
+              <div class="row g-3">
                 <div class="col-md-4">
                   <label for="zone" class="form-label">Zone</label>
                    <select th:field="*{zoneNo}" id="zoneNo" class="form-select" >
@@ -77,41 +102,6 @@
                   </select>
                 </div>
                 <div class="col-md-4">
-                  <label for="assetType" class="form-label">Asset Type</label>
-                  <select id="assetType" class="form-select" th:field="*{assetType}">
-                    <option th:value="''">---Select Asset Type---</option>
-                    <option th:value="'Park'">Park</option>
-                    <option th:value="'Amma Unavangam'">Amma Unavangam</option>
-                    <option th:value="'Public Toilet'">Public Toilet</option>
-                  </select>
-                </div>
-                <!--
-                <div class="col-4">
-                  <label for="assetId" class="form-label">Asset No</label>
-                  <input type="text" class="form-control" id="assetNo" th:field="*{assetNo}">
-                </div>	-->
-                <div class="col-md-4">
-                  <label for="assetName" class="form-label">Name of the Asset</label>
-                  <input type="text" class="form-control" id="assetName" th:field="*{assetName}">
-                </div>
-                <div class="col-md-4">
-                  <label for="assetAddress" class="form-label">Address of the Asset</label>
-                  <input type="text" class="form-control" id="assetAddress" th:field="*{assetAddress}">
-                </div>
-                
-                <div class="col-md-4">
-                  <label for="assetDate" class="form-label">Opening Timing</label>
-                  <input type="time" class="form-control" id="assetOpeningTime" th:field="*{assetOpeningTime}">
-                </div>
-                <div class="col-md-4">
-                  <label for="assetDate" class="form-label">Closing Timing</label>
-                  <input type="time" class="form-control" id="assetClosingTime" th:field="*{assetClosingTime}">
-                </div>
-                <!-- <div class="col-md-4">
-                  <label for="assetDate" class="form-label">Date</label>
-                  <input type="date" class="form-control" id="assetDate" th:field="*{assetDate}">
-                </div> -->
-                <div class="col-md-4">
                   <label for="assetType" class="form-label">Area</label>
                   <select id="assetType" class="form-select" th:field="*{assetArea}">
                     <option th:value="''">---Select Area---</option>
@@ -138,18 +128,47 @@
                     <option th:value="'Street 3'">Street 3</option>
                   </select>
                 </div>
-                <div class="col-5">
-                  <label for="inputNumber" class="col-sm-4 col-form-label">File</label>
-                  <div class="col-sm-10">
+                <div class="col-md-4">
+                  <label for="assetType" class="form-label">Asset Type</label>
+                  <select id="assetType" class="form-select" th:field="*{assetType}">
+                    <option th:value="''">---Select Asset Type---</option>
+                    <option th:value="'Park'">Park</option>
+                    <option th:value="'Amma Unavangam'">Amma Unavangam</option>
+                    <option th:value="'Public Toilet'">Public Toilet</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="assetName" class="form-label">Name of the Asset</label>
+                  <input type="text" class="form-control" id="assetName" th:field="*{assetName}">
+                </div>
+                <div class="col-md-4">
+                  <label for="assetAddress" class="form-label">Address of the Asset</label>
+                  <input type="text" class="form-control" id="assetAddress" th:field="*{assetAddress}">
+                </div>
+                
+                <div class="col-md-4">
+                  <label for="assetOpeningTime" class="form-label">Opening Timing</label>
+                  <input type="time" class="form-control" id="assetOpeningTime" th:field="*{assetOpeningTime}">
+                </div>
+                <div class="col-md-4">
+                  <label for="assetClosingTime" class="form-label">Closing Timing</label>
+                  <input type="time" class="form-control" id="assetClosingTime" th:field="*{assetClosingTime}">
+                </div>
+                <div class="col-md-4">
+                  <label for="assetGeoLocation" class="form-label">Geo-Location</label>
+                  <input type="text" class="form-control" id="assetGeoLocation" onclick="getLocation()">
+                </div> 
+                <div class="col-md-4">
+                  <label for="assetFile" class="col-sm-4 col-form-label">File</label>
+                  <div class="col-sm-12">
                     <input class="form-control" type="file" id="assetFile" th:field="*{assetFile}">
                   </div>
                 </div> 
+                
+                
                
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                  <button type="reset" class="btn btn-secondary">Reset</button>
                 </div>
-              </form><!-- End Multi Columns Form -->
+              <!-- End Multi Columns Form -->
 
             </div>
           </div>
@@ -157,6 +176,40 @@
         </div>
       </div>
     </section>
+    
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Asset Parameters</h5>
+
+				<div class="row g-3">
+                <div class="col-10">
+                  <label for="assetQuestion" class="form-label">Asset Parameters</label>
+                  <input type="text" class="form-control" id="assetQuestion" >
+                </div>
+                
+                <div class="col-2">
+                  
+                </div>
+                
+                <div id='appendAssetQuestion'></div>
+                
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="reset" class="btn btn-secondary" id='assetMasterEntryFormRest'>Reset</button>
+                </div>
+				</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+</form>    
+    
 
   </main><!-- End #main -->
 
