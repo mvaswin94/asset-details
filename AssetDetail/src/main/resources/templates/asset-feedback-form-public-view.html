@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<!-- head tag -->
+<div th:replace="/fragment/Head.html::head"></div>
+
+<body class="toggle-sidebar">
+
+	<!-- header tag -->
+	<!-- <div th:replace="/fragment/Header.html::header"></div> -->
+
+	<!-- sidebar tag -->
+	<!-- <div th:replace="/fragment/SideBar.html::sidebar"></div> -->
+
+	<main id="main" class="main">
+
+		<div class="pagetitle">
+			<h1>FEEDBACK FORM</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+					<li class="breadcrumb-item">Public View</li>
+					<li class="breadcrumb-item active">Feedback Form</li>
+				</ol>
+			</nav>
+		</div>
+		<!-- End Page Title -->
+<form  th:action="@{/asset/feedback/form/submit}" method="POST">
+		<section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Mobile Number Verification</h5>
+
+              <!-- <form class="row g-3"> -->
+              
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="mobileNo" class="form-label">Mobile No.</label>
+                  <input type="number" class="form-control" id="mobileNo" >
+                </div>
+                <div class="col-md-2">
+                <label for="mobileNo" class="form-label"></label>
+                <button type="button" class="btn btn-primary">Send OTP</button>
+                </div>
+                <div class="col-md-4">
+                  <label for="otp" class="form-label">OTP</label>
+                  <input type="number" class="form-control" id="otp" >
+                </div>
+                <div class="col-md-2">
+                <label for="mobileNo" class="form-label"></label>
+                <button type="button" class="btn btn-success">Verify OTP</button>
+                </div>
+                <div class="text-center">
+                </div>
+              </div><!-- End Multi Columns Form -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    
+		<section class="section">
+			<div class="row">
+
+				<div class="col-lg-12">
+
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Feedback Form</h5>
+
+							<!-- Table with hoverable rows -->
+							<table class="table table-hover table-bordered">
+								<thead>
+									<tr>
+										<th scope="col">Sl.No.</th>
+										<th scope="col">Question</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="obj,iterator : ${page}">
+										<td th:text="${iterator.count}"></td>
+										<td th:text="${obj.question}" th:attr="data-question=${obj.question}"></td>
+										
+										<td>
+											<span th:if="${obj.questionType}=='YesNo'">
+											<fieldset id="yesNo">
+											<input class="form-check-input" type="radio" name="feedback" id="feedback" value="yes">
+                      							<label class="form-check-label" for="feedback1">
+                        							Yes
+                      							</label>
+                      						<input class="form-check-input" type="radio" name="feedback" id="feedback" value="no">
+                      							<label class="form-check-label" for="feedback2">
+                        							No
+                      							</label>
+                      						</fieldset>	
+											</span>
+											
+											<span th:if="${obj.questionType}=='GoodAverageBad'">
+											<fieldset id="goodAverageBad">
+											<input class="form-check-input" type="radio" name="feedback" id="feedback" value="good">
+                      							<label class="form-check-label" for="GoodAverageBad1">
+                        							Good
+                      							</label>
+                      						<input class="form-check-input" type="radio" name="feedback" id="feedback" value="average">
+                      							<label class="form-check-label" for="GoodAverageBad2">
+                        							Bad
+                      							</label>
+                      						<input class="form-check-input" type="radio" name="feedback" id="feedback" value="bad">
+                      							<label class="form-check-label" for="GoodAverageBad3">
+                        							Average
+                      							</label>
+                      						</fieldset>			
+											</span>
+										</td>
+										<!-- <td>
+										<a href="#"><i class="bi bi-pen"></i></a>
+										</td> -->
+										<!-- <td>
+										 <select class="form-select"
+											aria-label="Default select example">
+												<option selected></option>
+												<option value="1">Yes</option>
+												<option value="2">No</option>
+												<option value="3">Good</option>
+												<option value="4">Bad</option>
+												<option value="5">Average</option>
+										</select>
+										</td> -->
+									</tr>
+								</tbody>
+							</table>
+
+							<div class="col-5">
+                  				<label for="inputNumber" class="col-sm-4 col-form-label">File</label>
+                  				<div class="col-sm-10">
+                    				<input class="form-control" type="file" id="complaintFile">
+                  				</div>
+                			</div>	 
+							<div class="text-center">
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<button type="reset" class="btn btn-secondary">Reset</button>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+</form>
+	</main>
+	<!-- End #main -->
+
+	<!-- Footer -->
+	<div th:replace="/fragment/Footer.html::footer	"></div>
+
+	<!-- Go to Top -->
+	<a href="#"
+		class="back-to-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
+
+	<!-- Footer -->	
+	<div th:replace="/fragment/Js.html::js"></div>
+  
+</body>
+
+</html>

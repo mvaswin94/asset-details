@@ -1,25 +1,29 @@
 package com.asset.feedback;
 
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "asset_feedback_question")
+@Table(name = "asset_feedback")
 public class Feedback {
 	
 		@Id
 		@GeneratedValue(strategy = GenerationType.AUTO)
-		@Column(name="feedback_question_id", nullable=false)
-		public Integer feedbackQuestionId;
+		@Column(name="feedback_id", nullable=false)
+		public Integer feedbackId;
 		
 		@Column(name="asset_id")
 		public String assetId;
@@ -27,10 +31,9 @@ public class Feedback {
 		@Column(name="asset_type")
 		public String assetType;
 		
-		@Column(name="question")
-		public String question;
-		
-		@Column(name="question_type")
-		public String questionType;
+		//@OneToMany(mappedBy = "FeedbackQuestion", fetch = FetchType.LAZY, cascade=CascadeType.ALL) 
+		//private List<FeedbackQuestion> feedbackQuestionList;
 
+		//@OneToMany(mappedBy = "FeedbackQuestion", fetch = FetchType.LAZY, cascade = CascadeType.ALL) 
+		//public List<FeedbackQuestion> feedbackQuestionList = new ArrayList<FeedbackQuestion>();
 	}

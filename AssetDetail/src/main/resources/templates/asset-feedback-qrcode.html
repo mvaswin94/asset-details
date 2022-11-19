@@ -6,14 +6,19 @@
 
 <script>
 		$( document ).ready(function() {
-			$("qrCode").hide();
+			//$("myModal").hide();
 		});
 		function generate() {
-			$("qrCode").show();
+			$("myModal").show();
 			var typeNumber = 4;
 			var errorCorrectionLevel = 'L';
 			var qr = qrcode(typeNumber, errorCorrectionLevel);
-			var inputText = document.getElementById('url').value;
+			/* var inputText = document.getElementById('url').value; */
+			var assetType = $('#assetType').val();
+			var assetId = $('#assetId').val();
+			//var inputText = "http://192.168.29.19:9090/asset/feedback/qrCode/assetType='"+ assetType + "'/assetId='"+ assetId + "'";
+			var inputText = "http://192.168.29.19:9090/asset/feedback/entry";
+			//var inputText ="www.google.com";
 			qr.addData(inputText);
 			qr.make();
 			document.getElementById('placeHolder').innerHTML = qr.createImgTag();
@@ -35,7 +40,7 @@
 		}
 		function addAssetId($this) {
 			var typevalue = $this.value;
-			var tempURL = "http://127.0.0.1:9090/asset/feedback/qrcode/assetId='"+ typevalue + "'";
+			var tempURL = "http://127.0.0.1:9090/asset/feedback/qrCode/assetId='"+ typevalue + "'";
 			$('#url').val(tempURL);
 		}
 </script>
@@ -69,13 +74,8 @@
               <h5 class="card-title">QR Code Generation</h5>
 
               <!-- <form class="row g-3"> -->
-              <form class="row g-3" th:action="@{/asset/feedback/qrcode/submit}" th:object="${qrCodeObj}" method="POST" >
-                <div class="col-4">
-                  <label for="assetId" class="form-label">Asset Id</label>
-                  <input type="text" class="form-control" id="assetId" th:field="*{assetId}" onchange="addAssetId(this);">
-                </div>
-                
-                <div class="col-md-4">
+              <form class="row g-3" th:action="@{/asset/feedback/qrcode/search}" th:object="${qrCodeObj}" method="POST" >
+              	<!-- <div class="col-md-4">
                   <label for="assetType" class="form-label">Asset Type</label>
                   <select id="assetType" class="form-select" th:field="*{assetType}">
                     <option th:value="''"> </option>
@@ -83,6 +83,21 @@
                     <option th:value="'Amma Unavangam'">Amma Unavangam</option>
                     <option th:value="'Public Toilet'">Public Toilet</option>
                   </select>
+                </div> -->
+                
+                <div class="col-md-4">
+                  <label for="assetType" class="form-label">Asset Type</label>
+                  <select id="assetType" class="form-select" th:field="*{assetType}">
+                    <option th:value="''">---Select Asset Type---</option>
+                    <option th:value="'Park'">Park</option>
+                    <option th:value="'Amma Unavangam'">Amma Unavangam</option>
+                    <option th:value="'Public Toilet'">Public Toilet</option>
+                  </select>
+                </div>
+                
+                <div class="col-4">
+                  <label for="assetId" class="form-label">Asset Id</label>
+                  <input type="text" class="form-control" id="assetId" th:field="*{assetId}" onchange="addAssetId(this);">
                 </div>
                 
                 <div class="col-6"> </div>
@@ -90,7 +105,8 @@
                 <input type="text" class="form-control" id="url" name="url" hidden>
                 
                 <div class="text-center">
-                  <button type="button" class="btn btn-success" onclick="generate();">Generate QR</button>
+                  <!-- <button type="button" class="btn btn-success" onclick="generate();">Generate QR</button> -->
+                  <button type="button" class="btn btn-success">Search</button>
                   <button type="reset" class="btn btn-secondary">Reset</button>
                 </div>
               </form><!-- End Multi Columns Form -->
@@ -98,27 +114,78 @@
             </div>
           </div>
           
-        <div class="row" id="qrCode">
+      <!-- <div class="row" id="myModal">
 		<div class="col-sm-5"></div>
 			<div class="col-sm-2">
-				<div class="card">
+				<div class="card"> -->
 					<div id="dBtn">
-							<!-- <div class="jumbotron mx-auto w-75 border my-4 py-4 text-center" id="dBtn"> -->
 						<div id="placeHolder"></div>
 							<canvas id="myCanvas"> </canvas>
 							<br> 
 							<div class="text-center">
-							<!-- <button type="button" class="btn btn-danger btn-lg" onclick="javascript: downloadQrCode();" download="QRcode.png"Download</button> -->
 							</div>
-							<a href="#" class="btn btn-danger btn-lg" onclick="downloadQrCode(this);" download="QRcode.png"> Download </a>
+							<!-- <a href="#" class="btn btn-danger btn-lg" onclick="downloadQrCode(this);" download="QRcode.png"> Download </a> -->
 						</div>
-					</div>
+					<!-- </div>
 				</div>
 			<div class="col-sm-5"></div>
-		</div>	
+		</div>	  -->
           
 			</div>
 		</section>
+	
+	<section class="section">
+      <div class="row">
+          
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Feedback List</h5>
+
+              <!-- Table with hoverable rows -->
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Sl.No.</th>
+                    <th scope="col">Feedback Form Id</th>
+                    <th scope="col">Asset Type</th>
+                    <th scope="col">Asset Id</th>
+                    <th scope="col">QR Generation</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="obj,iterator : ${page}">
+                    <td th:text="${iterator.count}"></td>
+                    <td th:text="${obj.feedbackId}" th:attr="data-feedbackId=${obj.feedbackId}"></td>
+                    <td th:text="${obj.assetType}" th:attr="data-assetType=${obj.assetType}" id='assetType'></td>
+                    <td th:text="${obj.assetId}" th:attr="data-assetId=${obj.assetId}" id='assetId'></td>
+                    <td>
+                    	<span onclick="generate();">
+                    		<i class="bi bi-qr-code"></i>
+                    	</span>
+                    	<span>
+                    	<a href="#" onclick="downloadQrCode(this);" download="QRcode.png"> 
+                    		<i class="bi bi-download"></i>
+                    		</a> 
+                    	</span>
+                    </td>
+                    <td>	
+                    	<a th:href="@{'/asset/feedback/qrcode/edit/'+ ${obj.assetId}}">
+                    		<i class="bi bi-pen"></i>
+                    	</a>
+                    </td> 
+                  </tr>
+                </tbody>
+              </table>
+              <!-- End Table with hoverable rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>	
 
 	</main>
 	<!-- End #main -->
