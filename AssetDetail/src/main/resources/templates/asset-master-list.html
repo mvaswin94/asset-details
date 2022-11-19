@@ -2,7 +2,7 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
 <!-- head tag -->
-<div th:replace="/fragment/Head.html::head"></div>
+	<div th:replace="/fragment/Head.html::head"></div> 
 
 <body>
 	
@@ -25,6 +25,38 @@
       </nav>
     </div><!-- End Page Title -->
 
+<section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Advanced Search</h5>
+
+              <!-- <form class="row g-3"> -->
+              <form class="row g-3" th:action="@{/asset/master/list/search}" th:object="${masterSearchObj}" method="GET">
+                <div class="col-md-4">
+                  <label for="masterName" class="form-label">Asset Type</label>
+                  <select id="masterName" class="form-select" th:field="*{masterName}">
+                    <option th:value="''">---Select Asset Type---</option>
+                    <option th:value="'Park'">Park</option>
+                    <option th:value="'Amma Unavangam'">Amma Unavangam</option>
+                    <option th:value="'Public Toilet'">Public Toilet</option>
+                  </select>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Search</button>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+              </form><!-- End Multi Columns Form -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    
     <section class="section">
       <div class="row">
           

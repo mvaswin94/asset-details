@@ -11,26 +11,21 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "v_master")
-public class MasterView {
+@Table(name = "asset_master_parameters")
+public class MasterParameters {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="master_parameters_id")
+	public Integer masterParametersId;
+	
 	@Column(name="master_id")
 	public Integer masterId;
-	
+		
 	@Column(name="master_name")
 	public String masterName;
 	
 	@Column(name="master_parameters")
 	public String masterParameters;
 	
-	@Column(name="master_question_tamil")
-	public String masterQuestionTamil;
-	
-	@Column(name="master_question_english")
-	public String masterQuestionEnglish;
-
-	@Column(name="master_question_type")
-	public String masterQuestionType;
 }

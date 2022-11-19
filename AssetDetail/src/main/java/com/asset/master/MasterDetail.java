@@ -28,11 +28,11 @@ public class MasterDetail {
 	@Column(name="master_name")
 	public String masterName;
 	
-	@Column(name="master_characteristic")
-	public String masterCharacteristic;
+	@Column(name="master_question_tamil")
+	public String masterQuestionTamil;
 	
-	@Column(name="master_question")
-	public String masterQuestion;
+	@Column(name="master_question_english")
+	public String masterQuestionEnglish;
 
 	@Column(name="master_question_type")
 	public String masterQuestionType;

@@ -20,6 +20,7 @@ function showPosition(position) {
 	var lon=position.coords.longitude;
 	
 	$("#assetGeoLocation").val(lat);
+	$("#assetGeoLocation").val(lon);
  
 	/* x.innerHTML = "Latitude: " + position.coords.latitude +  "<br>Longitude: " + position.coords.longitude; */
   
@@ -99,6 +100,7 @@ function showPosition(position) {
                     <option th:value="'013'">013</option>
                     <option th:value="'014'">014</option>
                     <option th:value="'015'">015</option>
+                    <option th:value="'058'">058</option>
                   </select>
                 </div>
                 <div class="col-md-4">
@@ -192,7 +194,14 @@ function showPosition(position) {
                 </div>
                 
                 <div class="col-2">
-                  
+                  <!-- span th:if="${obj.questionType}=='YesNo'"> -->
+						<fieldset id="yesNo">
+							<input class="form-check-input" type="radio" name="assetParameters" id="assetParameters" value="yes">
+                    			<label class="form-check-label" for="assetParameters">Yes</label>
+                      				<input class="form-check-input" type="radio" name="assetParameters" id="assetParameters" value="no">
+                      			<label class="form-check-label" for="assetParameters">No</label>
+                      	</fieldset>	
+						<!-- </span> -->
                 </div>
                 
                 <div id='appendAssetQuestion'></div>
