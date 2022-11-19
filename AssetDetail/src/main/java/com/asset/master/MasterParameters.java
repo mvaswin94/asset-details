@@ -17,10 +17,10 @@ public class MasterParameters {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="master_parameters_id")
-	public String masterParametersId;
+	public Integer masterParametersId;
 	
 	@Column(name="master_id")
-	public String masterId;
+	public Integer masterId;
 		
 	@Column(name="master_name")
 	public String masterName;
