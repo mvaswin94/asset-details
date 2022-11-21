@@ -2,58 +2,17 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
 <!-- head tag -->
-<!-- <div th:replace="/fragment/Head.html::head"></div> -->
-
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Assets Feedback</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="/assets/img/favicon.png" rel="icon">
-  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="/assets/css/style.css" rel="stylesheet">
-  
-  <!-- Template Local CSS File -->
-  <link href="/assets/css/local.css" rel="stylesheet">
-  
-	
-	<!-- For QR Code (Start)-->  
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.1/qrcode.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script> -->
-	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p opper.js/1.14.3/umd/popper.min.js"> </script> -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	<!-- For QR Code (End)-->
-	
-	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
+<div th:replace="/fragment/Head.html::head"></div>
 
 <script>
 $(document).ready(function(){
-$("#addAssetCharacteristic").click(function(){
-	  $("#appendAssetCharacteristic").append("<div class='col-10'> "+ 
-              "<label for='assetCharacteristic' class='form-label'> </label>"+
-              "<input type='text' class='form-control' id='assetCharacteristic' >" +
+$("#addParameters").click(function(){
+	var size = 0;
+    size++;
+    
+	  $("#appendParameters").append("<div class='col-10'> "+ 
+              "<label for='masterParameters' class='form-label'> </label>"+
+              "<input type='text' class='form-control' id='masterParameters' name='masterParameters_o_'"+size+">" +
               "</div>");
 	});
 
@@ -129,20 +88,19 @@ $('#assetMasterEntryFormRest').click(function(){
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Asset Parameters</h5>
-
 				<div class="row g-3">
                 <div class="col-10">
-                  <label for="assetCharacteristic" class="form-label">Asset Parameters</label>
-                  <input type="text" class="form-control" id="masterParameters" th:object="${masterParametersList}" th:field="*{masterParameters}" required>
+                  <label for="assetParameters" class="form-label">Asset Parameters</label>
+                  <input type="text" class="form-control" id="masterParameters" th:field="*{masterParametersList.masterParameters}" required>
                 </div>
                 
                 <div class="col-2">
-                  <button type='button' class="btn btn-primary" id='addAssetCharacteristic' style="position: relative; top: 30px;">
+                  <button type='button' class="btn btn-primary" id='addParameters' style="position: relative; top: 30px;">
                   	<i class="bi bi-plus"></i>
                   </button>
                 </div>
                 
-                <div id='appendAssetCharacteristic'></div>
+                <div id='appendParameters'></div>
                 
 				</div>
             </div>
@@ -192,29 +150,14 @@ $('#assetMasterEntryFormRest').click(function(){
 </form>
   </main><!-- End #main -->
 
- <!-- Footer -->	
+<!-- Footer -->	
 	<div th:replace="/fragment/Footer.html::footer	"></div>
 
 <!-- Go to Top -->
 	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- Footer -->	
-	<!-- <div th:replace="/fragment/Js.html::js"></div> -->
-	
-	  <!-- Vendor JS Files -->
-  <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/vendor/chart.js/chart.min.js"></script>
-  <script src="/assets/vendor/echarts/echarts.min.js"></script>
-  <script src="/assets/vendor/quill/quill.min.js"></script>
-  <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="/assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="/assets/js/main.js"></script>
-  
-  <!-- Custom Local JS File -->
+	<div th:replace="/fragment/Js.html::js"></div>
 
 </body>
 
