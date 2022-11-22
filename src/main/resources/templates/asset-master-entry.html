@@ -6,13 +6,17 @@
 
 <script>
 $(document).ready(function(){
+	
+	
 $("#addParameters").click(function(){
 	var size = 0;
-    size++;
-    
+	size++; 
+	
+	
+	
 	  $("#appendParameters").append("<div class='col-10'> "+ 
               "<label for='masterParameters' class='form-label'> </label>"+
-              "<input type='text' class='form-control' id='masterParameters' name='masterParameters_o_'"+size+">" +
+              "<input type='text' class='form-control' id='masterParameters_"+size+"' name='masterParameters_"+size+"'>" +
               "</div>");
 	});
 

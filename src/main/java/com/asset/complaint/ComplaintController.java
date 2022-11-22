@@ -44,28 +44,7 @@ public class ComplaintController {
 		obj2.setFeedback(complaintQuestion.getFeedback());
 		complaintQuestionRepo.saveAndFlush(obj2);
 		
-		String mobileNo = complaint.getMobileNo();
 		
-		//String url1 = "https://erp.chennaicorporation.gov.in/pgr/external/mobileservice?";
-		
-		String url = "https://erp.chennaicorporation.gov.in/pgr/external/mobileservice?\r\n"
-				+ "serviceId=RegComplaint&\r\n"
-				+ "serviceinput=\r\n"
-				+ "{\r\n"
-				+ "\"ComplainantName\":\"NA\",\r\n"
-				+ "\"ComplainantAddr\":\"NA\",\r\n"
-				+ "\"MobileNo\":\""+mobileNo+"\",\r\n"
-				+ "\"Email\":\"NA\",\r\n"
-				+ "\"ComplaintType\":\"18\",\r\n"
-				+ "\"ComplaintTitle\":\"Mosquitomenace\",\r\n"
-				+ "\"ComplaintDetails\":\"testingcomplaintdetails\",\r\n"
-				+ "\"StreetId\":\"NA\",\r\n"
-				+ "\"Comp_Image\":\"NA\",\r\n"
-				+ "\"latitude\":\"NA\",\r\n"
-				+ "\"longtitude\":\"NA\",\r\n"
-				+ "\"Landmark\":\"testing\"\r\n"
-				+ "}";
-		
-		return "redirect:"+url+"";
+		return "null";
 	}
 }

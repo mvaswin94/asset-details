@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.asset.asset.Asset;
+import com.asset.master.MasterDetail;
+import com.asset.master.MasterDetailRepository;
 
 @Controller
 @RequestMapping(value = "/asset/feedback")
@@ -27,6 +29,9 @@ public class FeedbackController {
 	
 	@Autowired
 	FeedbackQuestionRepository feedbackQuestionRepo;
+	
+	@Autowired
+	MasterDetailRepository masterDetailRepo;
 	
 	@GetMapping(value = "/creation")
 	public String feedbackForm(Model model) {
@@ -80,6 +85,7 @@ public class FeedbackController {
 	@GetMapping(value = "/list")
 	public String feedbackList(Model model, @PageableDefault(size = 1000) Pageable pageable) {
 		Page<Feedback> obj = feedbackRepo.findAll(pageable);
+		//Page<MasterDetail> obj = masterDetailRepo.findAll(pageable);
 		model.addAttribute("page", obj);
 		System.out.println("obj"+obj);
 		return "asset-feedback-list";
@@ -90,7 +96,8 @@ public class FeedbackController {
 //		Page<Feedback> obj = feedbackRepo.findAll(pageable);
 //		model.addAttribute("page", obj);
 //		System.out.println("obj"+obj);
-		List<FeedbackQuestion> obj = feedbackQuestionRepo.findAll();
+		//List<FeedbackQuestion> obj = feedbackQuestionRepo.findAll();
+		List<MasterDetail> obj = masterDetailRepo.findAll();
 		model.addAttribute("page", obj);
 		return "asset-feedback-form-public-view";
 	}

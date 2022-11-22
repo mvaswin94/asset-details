@@ -38,8 +38,8 @@ public class MasterController {
 		//model.addAttribute("masterObj", new MasterView());
 		model.addAttribute("masterList", new Master());
 		
-		model.addAttribute("masterParametersList",  new MasterParameters());
-		//model.addAttribute("masterParametersList",  masterParameters.getMasterParameters());
+		//model.addAttribute("masterParametersList",  new MasterParameters());
+		model.addAttribute("masterParametersList",  masterParameters.getMasterParameters());
 		model.addAttribute("masterDetailList",  new MasterDetail());
 		return "asset-master-entry";
 	}
@@ -61,18 +61,18 @@ public class MasterController {
 		obj2.setMasterQuestionType(masterDetail.getMasterQuestionType());
 		masterDetailRepo.saveAndFlush(obj2);
 		
-//		for (int i = 0; i < masterDetailList.size(); i++) {
-//			MasterDetail objLoop = masterDetailList.get(i);
-//
-//			MasterDetail obj4 = new MasterDetail();
-//			obj4.setMasterId(master.getMasterId());
-//			obj4.setMasterName(master.getMasterName());
-//			obj4.setMasterQuestionTamil(objLoop.getMasterQuestionTamil());
-//			obj4.setMasterQuestionEnglish(objLoop.getMasterQuestionEnglish());
-//			obj4.setMasterQuestionType(objLoop.getMasterQuestionType());
-//			masterDetailRepo.saveAndFlush(obj4);
-//
-//		}
+		for (int i = 0; i < masterDetailList.size(); i++) {
+			MasterDetail objLoop = masterDetailList.get(i);
+
+			MasterDetail obj4 = new MasterDetail();
+			obj4.setMasterId(master.getMasterId());
+			obj4.setMasterName(master.getMasterName());
+			obj4.setMasterQuestionTamil(objLoop.getMasterQuestionTamil());
+			obj4.setMasterQuestionEnglish(objLoop.getMasterQuestionEnglish());
+			obj4.setMasterQuestionType(objLoop.getMasterQuestionType());
+			masterDetailRepo.saveAndFlush(obj4);
+
+		}
 		
 		MasterParameters obj3 = new MasterParameters();
 		obj3.setMasterId(master.getMasterId());
