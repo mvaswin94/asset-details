@@ -45,6 +45,24 @@ public class ComplaintController {
 		complaintQuestionRepo.saveAndFlush(obj2);
 		
 		
-		return "null";
+//		String name="NA";
+//		String mobileNo="9884209184";
+//		String complaintDetail="TestDetail";
+//		String url ="https://erp.chennaicorporation.gov.in/pgr/external/mobileservice?\r\n"
+//				+ "serviceId=RegComplaint&\r\n"
+//				+ "ComplainantName="+name+"&\r\n"
+//				+ "ComplainantAddr=testingurladdrss&\r\n"
+//				+ "MobileNo="+mobileNo+"&\r\n"
+//				+ "Email=null&\r\n"
+//				+ "ComplaintType=18&\r\n"
+//				+ "ComplaintTitle=Mosquitomenace&\r\n"
+//				+ "ComplaintDetails="+complaintDetail+"&\r\n"
+//				+ "StreetId=25956&\r\n"
+//				+ "Comp_Image=null&\r\n"
+//				+ "latitude=null&\r\n"
+//				+ "longtitude=null&\r\n"
+//				+ "Landmark=null";
+		
+		return "asset-feedback-form-public-view";
 	}
 }

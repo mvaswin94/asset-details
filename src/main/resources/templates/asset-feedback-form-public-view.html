@@ -4,11 +4,52 @@
 <!-- head tag -->
 <div th:replace="/fragment/Head.html::head"></div>
 
+<style>
+
+.rating {
+display: flex;
+flex-direction: row-reverse;
+justify-content: center;
+}
+
+.rating > input{
+ display:none;
+}
+
+.rating > label {
+position: relative;
+right: 150px;
+width: 1.1em;
+font-size: 3vw;
+color: #FFD700;
+cursor: pointer;
+}
+
+.rating > label::before{
+content: "\2605";
+position: absolute;
+opacity: 0;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before {
+opacity: 1 !important;
+}
+
+.rating > input:checked ~ label:before{
+opacity:1;
+}
+
+.rating:hover > input:checked ~ label:before{ 
+opacity: 0.4;
+ }
+</style>
 <script>
 
 $(document).ready(function(){
 	$("#tamilFeedback").hide();
 	$("#englishFeedback").show();
+	/* $('#rateMe3').mdbRate(); */
 });
 
 function viewEnglish() {
@@ -42,7 +83,7 @@ function viewTamil() {
     		</div>
     		
     		<div class="col-md-8">
-              <h5 class="card-title">Government of Tamil Nadu<br>
+              <h5 class="card-title" style="position: relative; left: 260px;">Government of Tamil Nadu<br>
               &#2980;&#2990;&#3007;&#2996;&#3021;&#2984;&#3006;&#2975;&#3009; &#2949;&#2992;&#2970;&#3009;<br>
               &#2986;&#3014;&#2992;&#3009;&#2984;&#2965;&#2992; &#2970;&#3014;&#2985;&#3021;&#2985;&#3016; &#2990;&#3006;&#2984;&#2965;&#2992;&#3006;&#2975;&#3021;&#2970;&#3007;</h5>
 			</div>
@@ -93,19 +134,21 @@ function viewTamil() {
               <div class="row g-3">
                 <div class="col-md-3">
                   <label for="publicName" class="form-label">Name (Optional)</label>
-                  <input type="number" class="form-control" id="publicName" >
+                  <input type="text" class="form-control" id="publicName" >
                 </div>
                 <div class="col-md-3">
                   <label for="mobileNo" class="form-label">Mobile No.</label>
-                  <input type="number" class="form-control" id="mobileNo" >
+                  <input type="number" class="form-control" id="mobileNo" max="9999999999">
                 </div>
                 <div class="col-md-1">
                 <label for="mobileNo" class="form-label"></label>
+                <!-- <a th:href="@{'/asset/feedback/sendOtp/mobileNo='+ ${obj.mobileNo}}"> -->
                 <button type="button" class="btn btn-primary">Send OTP</button>
+                <!-- </a> -->
                 </div>
                 <div class="col-md-3">
                   <label for="otp" class="form-label">OTP</label>
-                  <input type="number" class="form-control" id="otp" >
+                  <input type="number" class="form-control" id="otp" max="9999">
                 </div>
                 <div class="col-md-1">
                 <label for="mobileNo" class="form-label"></label>
@@ -158,7 +201,8 @@ function viewTamil() {
 								<tbody>
 									<tr th:each="obj,iterator : ${page}">
 										<td th:text="${iterator.count}"></td>
-										<td th:text="${obj.masterQuestionEnglish}" th:attr="data-masterQuestionEnglish=${obj.masterQuestionEnglish}"></td>
+										<td th:utext="${obj.masterQuestionEnglish}" th:attr="data-masterQuestionEnglish=${obj.masterQuestionEnglish}">
+										</td>
 										
 										<td>
 											<span th:if="${obj.masterQuestionType}=='YesNo'">
@@ -196,17 +240,6 @@ function viewTamil() {
 								</tbody>
 							</table>
 
-							<div class="col-5">
-                  				<label for="inputNumber" class="col-sm-4 col-form-label">File</label>
-                  				<div class="col-sm-10">
-                    				<input class="form-control" type="file" id="complaintFile">
-                  				</div>
-                			</div>	 
-							<div class="text-center">
-								<button type="submit" class="btn btn-primary">Submit</button>
-								<button type="reset" class="btn btn-secondary">Reset</button>
-							</div>
-
 						</div>
 					</div>
 
@@ -235,7 +268,7 @@ function viewTamil() {
 								<tbody>
 									<tr th:each="obj,iterator : ${page}">
 										<td th:text="${iterator.count}"></td>
-										<td th:text="${obj.masterQuestionEnglish}" th:attr="data-masterQuestionEnglish=${obj.masterQuestionEnglish}"></td>
+										<td th:utext="${obj.masterQuestionTamil}" th:attr="data-masterQuestionTamil=${obj.masterQuestionTamil}"></td>
 										
 										<td>
 											<span th:if="${obj.masterQuestionType}=='YesNo'">
@@ -273,7 +306,7 @@ function viewTamil() {
 								</tbody>
 							</table>
 
-							<div class="col-5">
+							<!-- <div class="col-5">
                   				<label for="inputNumber" class="col-sm-4 col-form-label">&#2965;&#3015;&#3006;&#2986;&#3021;&#2986;&#3009; &#2986;&#2980;&#3007;&#2997;&#3015;&#2993;&#3021;&#2993;&#2990;&#3021;</label>
                   				<div class="col-sm-10">
                     				<input class="form-control" type="file" id="complaintFile">
@@ -282,13 +315,69 @@ function viewTamil() {
 							<div class="text-center">
 								<button type="submit" class="btn btn-primary">&#2970;&#2990;&#2992;&#3021;&#2986;&#3021;&#2986;&#3007;&#2965;&#3021;&#2965;</button>
 								<button type="reset" class="btn btn-secondary">&#2990;&#3008;&#2975;&#3021;&#2975;&#2990;&#3016;</button>
-							</div>
+							</div> -->
 
 						</div>
 					</div>
 
 				</div>
 			</div>
+		</section>
+		
+		<section class="section">
+			<div class="row">
+
+				<div class="col-lg-12">
+
+					<div class="card">
+						<div class="card-body">
+
+							<!-- <div class="col-5">
+                  				<label for="inputNumber" class="col-sm-4 col-form-label">&#2965;&#3015;&#3006;&#2986;&#3021;&#2986;&#3009; &#2986;&#2980;&#3007;&#2997;&#3015;&#2993;&#3021;&#2993;&#2990;&#3021;</label>
+                  				<div class="col-sm-10">
+                    				<input class="form-control" type="file" id="complaintFile">
+                  				</div>
+                			</div>	 
+							<div class="text-center">
+								<button type="submit" class="btn btn-primary">&#2970;&#2990;&#2992;&#3021;&#2986;&#3021;&#2986;&#3007;&#2965;&#3021;&#2965;</button>
+								<button type="reset" class="btn btn-secondary">&#2990;&#3008;&#2975;&#3021;&#2975;&#2990;&#3016;</button>
+							</div> -->
+							
+							 <div class="col-5">
+                  				<label for="complaintFile" class="col-sm-4 col-form-label">File</label>
+                  				<div class="col-sm-6">
+                    				<input class="form-control" type="file" id="complaintFile">
+                  				</div>
+                  			<!--	
+                  				<label for="feedbackRating" class="col-sm-4 col-form-label">Rating</label>
+                  				<div class="col-sm-4">
+                  					<div class="container">
+  										<span id="rateMe3"  class="rating-faces"></span>
+									</div>
+                  				</div>
+                			</div> -->
+                			
+                			<label for="rating">Please give us rating</label>
+                			<div class="rating">
+  								<input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+  								<input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+  								<input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+  								<input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+  								<input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+							</div>
+         
+		</div>
+  
+		</div>
+                				 
+							<div class="text-center">
+								<a th:href="@{'/asset/feedback/form/submitComplaint}"><button type="button" class="btn btn-warning">Complaint</button></a>
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<button type="reset" class="btn btn-secondary">Reset</button>
+							</div>
+
+						</div>
+					</div>
 		</section>
 </form>
 	</main>
