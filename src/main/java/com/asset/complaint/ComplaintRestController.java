@@ -41,78 +41,24 @@ public class ComplaintRestController {
 		  String longtitude="null";
 		  String landmark="null";
 	  
-			/* try { */
-	  
 	  String urlString = "https://erp.chennaicorporation.gov.in/pgr/external/mobileservice?serviceId=RegComplaint&ComplainantName="+name+"&ComplainantAddr="+address+"&MobileNo="+email+"&Email="+mobileNo+"&ComplaintType="+complaintType+"&ComplaintTitle="+complaintTitle+"&ComplaintDetails="+complaintDetail+"&StreetId="+streetId+"&Comp_Image="+image+"&latitude="+latitude+"&longtitude="+longtitude+"&Landmark="+landmark+"";
-	  
-	  System.out.print("urlString---:  "+urlString);
-	  
-	 
-	  
-//	  URL myurl = null; myurl = new URL(urlString ); 
-//	  System.out.print("myurl---:  "+myurl);
-//	  
-//	  URLConnection connection = myurl.openConnection(); 
-//	  System.out.print("connection---:  "+connection);
-//	  System.out.print("Sending Sucess");
-//	  
-//	  HttpURLConnection conn = (HttpURLConnection)myurl.openConnection();
-//	  	System.out.print("conn---:  "+conn);
-//	  conn.connect(); 
-//	  BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//	  	System.out.print("br---:  "+br);
-//	  String line = ""; 
-//	  String page_line = "";
-//	  while( (line = br.readLine() ) != null ) {
-//		  page_line += line+""; 
-//	  } 
-//	  System.out.println("page_line :" +page_line);
-//	  
-//	  String[] tempvalue = page_line.split("<br>");
-//	  System.out.print("tempvalue"+tempvalue);
-//	  
-//	  //String outputvalue = "";
-//		boolean isConnected = (conn.getContentLength() > 0);
-//		java.util.Date dt=new java.util.Date();
-//		System.out.print("Date"+dt);
-//		if(isConnected)
-//		{
-//			System.out.print("Sending Sucess");
-//			conn.disconnect();
-//		}
-	  
-//	  }
-//	  catch(Exception ex) { 
-//		  System.out.println("\n Error "+ex); 
-//	  }
-	  
-//	  RestTemplate restTemplate = new RestTemplate();
-//	  HttpHeaders headers = new HttpHeaders();
-//      //headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-//      HttpEntity<String> entity = new HttpEntity<String>(headers);
-//      return restTemplate.exchange(urlString, HttpMethod.POST, entity, String.class).getBody();
-	  
-	  
-	  ResponseEntity<String> response = null;
-	  	System.out.print("\n ---1---");
+	  //System.out.print("urlString---:  "+urlString);
+      
+      ResponseEntity<String> response = null;
+		RestTemplate restTemplate = new RestTemplate();
       HttpHeaders headers = new HttpHeaders();
-      	System.out.print("\n---2---"+headers);
-      headers.add("Content-Type", "application/x-www-form-urlencoded");
-      	System.out.print("\n ---3---"+headers);
-      RestTemplate restTemplate = new RestTemplate();
       try {
-          MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
-          	System.out.print("\n ---4---"+parametersMap);
-          HttpEntity<Object> postData = new HttpEntity<Object>(parametersMap, headers);
-          	System.out.print("\n ---5---"+postData);
+          HttpEntity<String> postData = new HttpEntity<String>(headers);
           response = restTemplate.exchange(urlString, HttpMethod.POST, postData, String.class);
-          	System.out.print("\n ---6---"+response);
+          
       } catch (Exception e) {
           e.printStackTrace();
-          System.out.println("\n Error "+e); 
       }
+
       String bodyMessage = response.getBody();
       return bodyMessage;
+      
+      
 	  }
 	 
 }
