@@ -8,7 +8,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication
 @EnableAutoConfiguration
 public class AssetDetailApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(AssetDetailApplication.class, args);
 	}

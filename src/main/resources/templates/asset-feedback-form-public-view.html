@@ -371,7 +371,8 @@ function viewTamil() {
 		</div>
                 				 
 							<div class="text-center">
-								<a th:href="@{'/asset/feedback/form/submitComplaint}"><button type="button" class="btn btn-warning">Complaint</button></a>
+								<!-- <a th:href="@{'/asset/feedback/entry/complaint}"><button type="button" class="btn btn-warning">Complaint</button></a> -->
+								<a th:href="@{/asset/feedback/entry/complaint}"><button type="button" class="btn btn-warning">Complaint</button></a>
 								<button type="submit" class="btn btn-primary">Submit</button>
 								<button type="reset" class="btn btn-secondary">Reset</button>
 							</div>
@@ -384,7 +385,7 @@ function viewTamil() {
 	<!-- End #main -->
 
 	<!-- Footer -->
-	<div th:replace="/fragment/Footer.html::footer	"></div>
+	<div th:replace="/fragment/Footer.html::footer"></div>
 
 	<!-- Go to Top -->
 	<a href="#"

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping(value = "/asset")
+@RequestMapping(value = "/asset/feedback/")
 public class ComplaintController {
 	
 	@Autowired
@@ -26,7 +26,7 @@ public class ComplaintController {
 		return "asset-complaint-tracking";
 	}
 
-	@PostMapping(value = "feedback/form/submit")
+	@PostMapping(value = "/entry/complaintTEST")
 	public String feedbackFormSubmit(@ModelAttribute Complaint complaint, ComplaintQuestion complaintQuestion) {
 		
 		Complaint obj = new Complaint();
@@ -43,7 +43,6 @@ public class ComplaintController {
 		obj2.setQuestion(complaintQuestion.getQuestion());
 		obj2.setFeedback(complaintQuestion.getFeedback());
 		complaintQuestionRepo.saveAndFlush(obj2);
-		
 		
 //		String name="NA";
 //		String mobileNo="9884209184";
