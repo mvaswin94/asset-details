@@ -1,6 +1,10 @@
 package com.asset.complaint;
 
 import java.util.List;
+import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -9,12 +13,34 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class ComplaintService {
-	
+
+	public String verifyOtp(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		int session_otp = (Integer) session.getAttribute("otp");
+			System.out.println("session_otp---:"+session_otp);
+		String string_entered_otp = "123456";
+		int entered_otp = Integer.parseInt(string_entered_otp);
+			System.out.println("Entered OTP Correct");
+		if(session_otp == entered_otp)
+		{
+			System.out.println("Entered OTP Correct");
+		}
+		else
+		{
+			System.out.println("Incorrect OTP. Please enter correct OTP.");
+		}
+		
+	      return string_entered_otp;
+	}
+
 	public String registerPgrComplaint() {
 		
 		 // URLs
@@ -46,7 +72,7 @@ public class ComplaintService {
         //headers.add("Content-Type", "application/x-www-form-urlencoded");
         try {
             HttpEntity<String> postData = new HttpEntity<String>(headers);
-            response = restTemplate.exchange(INTEGRATION_TOKEN_URL, HttpMethod.POST, postData, String.class);
+           // response = restTemplate.exchange(INTEGRATION_TOKEN_URL, HttpMethod.POST, postData, String.class);
             
         } catch (Exception e) {
             e.printStackTrace();

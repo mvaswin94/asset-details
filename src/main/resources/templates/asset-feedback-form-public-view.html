@@ -62,6 +62,21 @@ function viewTamil() {
 	$("#tamilFeedback").show();
 }
 
+function sendOtp(){
+	
+	var mobileNo = $("#mobileNo").val();
+	
+	$.ajax({
+			type: "GET",
+			url: '/asset/feedback/sendOtp',
+			data: {'mobileNo':mobileNo},
+			dataType: 'json',
+			success: function(bodyMessage) {
+					 alert("OTP Send Successfully!!!"+bodyMessage);
+			}
+	    });
+	
+}
 </script>
 
 <body class="toggle-sidebar">
@@ -143,7 +158,8 @@ function viewTamil() {
                 <div class="col-md-1">
                 <label for="mobileNo" class="form-label"></label>
                 <!-- <a th:href="@{'/asset/feedback/sendOtp/mobileNo='+ ${obj.mobileNo}}"> -->
-                <button type="button" class="btn btn-primary">Send OTP</button>
+                <!-- <a th:href="@{'/asset/feedback/sendOtp'}"> -->
+                <button type="button" class="btn btn-primary" onclick="sendOtp();">Send OTP</button>
                 <!-- </a> -->
                 </div>
                 <div class="col-md-3">
@@ -152,7 +168,9 @@ function viewTamil() {
                 </div>
                 <div class="col-md-1">
                 <label for="mobileNo" class="form-label"></label>
+                <a th:href="@{'/asset/feedback/verifyOtp'}">
                 <button type="button" class="btn btn-success">Verify OTP</button>
+                </a>
                 </div>
                 <div class="text-center">
                 </div>
