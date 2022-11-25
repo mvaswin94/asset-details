@@ -62,21 +62,6 @@ function viewTamil() {
 	$("#tamilFeedback").show();
 }
 
-function sendOtp(){
-	
-	var mobileNo = $("#mobileNo").val();
-	
-	$.ajax({
-			type: "GET",
-			url: '/asset/feedback/sendOtp',
-			data: {'mobileNo':mobileNo},
-			dataType: 'json',
-			success: function(bodyMessage) {
-					 alert("OTP Send Successfully!!!"+bodyMessage);
-			}
-	    });
-	
-}
 </script>
 
 <body class="toggle-sidebar">
@@ -153,7 +138,7 @@ function sendOtp(){
                 </div>
                 <div class="col-md-3">
                   <label for="mobileNo" class="form-label">Mobile No.</label>
-                  <input type="number" class="form-control" id="mobileNo" max="9999999999">
+                  <input type="text" class="form-control" maxlength="10" id="mobileNo">
                 </div>
                 <div class="col-md-1">
                 <label for="mobileNo" class="form-label"></label>
@@ -164,13 +149,13 @@ function sendOtp(){
                 </div>
                 <div class="col-md-3">
                   <label for="otp" class="form-label">OTP</label>
-                  <input type="number" class="form-control" id="otp" max="9999">
+                  <input type="text" class="form-control" maxlength="5" id="otp">
                 </div>
                 <div class="col-md-1">
                 <label for="mobileNo" class="form-label"></label>
-                <a th:href="@{'/asset/feedback/verifyOtp'}">
-                <button type="button" class="btn btn-success">Verify OTP</button>
-                </a>
+                <!-- <a th:href="@{'/asset/feedback/verifyOtp'}"> -->
+                <button type="button" class="btn btn-success" onclick="verifyOtp();">Verify OTP</button>
+                <!-- </a> -->
                 </div>
                 <div class="text-center">
                 </div>

@@ -31,12 +31,6 @@ public class ComplaintController {
 	@Autowired
 	ComplaintQuestionRepository complaintQuestionRepo;
 	
-	@GetMapping(value = "/verifyOtp")
-	public String verifyOtp() {
-		complaintSer.verifyOtp(null);
-		return "asset-feedback-form-public-view";
-	}
-	
 	@GetMapping(value = "/complaint/tracking")
 	public String assetEntry(Model model) {
 		model.addAttribute("complaintTrackingObj", new Complaint());

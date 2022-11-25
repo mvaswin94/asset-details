@@ -20,27 +20,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class ComplaintService {
 
-	public String verifyOtp(HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		
-		int session_otp = (Integer) session.getAttribute("otp");
-			System.out.println("session_otp---:"+session_otp);
-		String string_entered_otp = "123456";
-		int entered_otp = Integer.parseInt(string_entered_otp);
-			System.out.println("Entered OTP Correct");
-		if(session_otp == entered_otp)
-		{
-			System.out.println("Entered OTP Correct");
-		}
-		else
-		{
-			System.out.println("Incorrect OTP. Please enter correct OTP.");
-		}
-		
-	      return string_entered_otp;
-	}
-
 	public String registerPgrComplaint() {
 		
 		 // URLs

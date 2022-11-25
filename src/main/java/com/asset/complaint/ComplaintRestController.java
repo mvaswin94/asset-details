@@ -54,13 +54,37 @@ public class ComplaintRestController {
       } catch (Exception e) {
           e.printStackTrace();
           	System.out.print("\n ERROR---:  "+e);
-          bodyMessage = "ERROR";
+          bodyMessage = "Error";
       }
       System.out.println("\n OTP sent successfully!");
       
       HttpSession session = request.getSession();
       session.setAttribute("otp", otp);
 		return bodyMessage;
+	}
+	
+	@GetMapping(value = "/verifyOtp")
+	public String verifyOtp(HttpServletRequest request, @RequestParam String otp) {
+		
+		HttpSession session = request.getSession();
+		String message = "";
+		
+		int session_otp = (Integer) session.getAttribute("otp");
+			System.out.println("session_otp---:"+session_otp);
+		String string_entered_otp = otp;
+		int entered_otp = Integer.parseInt(string_entered_otp);
+		if(session_otp == entered_otp)
+		{
+			System.out.println("Entered OTP Correct");
+			message = "Success";
+		}
+		else
+		{
+			System.out.println("Incorrect OTP. Please enter correct OTP.");
+			message = "Error";
+		}
+		
+	      return message;
 	}
 	
 	 @GetMapping(value = "/entry/complaint") 
