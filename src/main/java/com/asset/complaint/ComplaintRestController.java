@@ -67,7 +67,7 @@ public class ComplaintRestController {
 	public String verifyOtp(HttpServletRequest request, @RequestParam String otp) {
 		
 		HttpSession session = request.getSession();
-		String message = "";
+		String bodyMessage = "";
 		
 		int session_otp = (Integer) session.getAttribute("otp");
 			System.out.println("session_otp---:"+session_otp);
@@ -76,15 +76,15 @@ public class ComplaintRestController {
 		if(session_otp == entered_otp)
 		{
 			System.out.println("Entered OTP Correct");
-			message = "Success";
+			bodyMessage = "Success";
 		}
 		else
 		{
 			System.out.println("Incorrect OTP. Please enter correct OTP.");
-			message = "Error";
+			bodyMessage = "Error";
 		}
 		
-	      return message;
+	      return bodyMessage;
 	}
 	
 	 @GetMapping(value = "/entry/complaint") 

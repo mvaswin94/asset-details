@@ -4,30 +4,6 @@
 <!-- head tag -->
 <div th:replace="/fragment/Head.html::head"></div>
 
-<script>
-var x = document.getElementById("assetGeoLocation");
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-
-function showPosition(position) {
-	var lat=position.coords.latitude;
-	var lon=position.coords.longitude;
-	
-	$("#assetGeoLocation").val(lat);
-	$("#assetGeoLocation").val(lon);
- 
-	/* x.innerHTML = "Latitude: " + position.coords.latitude +  "<br>Longitude: " + position.coords.longitude; */
-  
-  
-}
-</script>
-
 <body>
 	
 	<!-- header tag -->
@@ -62,24 +38,7 @@ function showPosition(position) {
               <div class="row g-3">
                 <div class="col-md-4">
                   <label for="zone" class="form-label">Zone</label>
-                   <select th:field="*{zoneNo}" id="zoneNo" class="form-select" >
-                   <option th:value="''">---Select Zone---</option>
-                   <option th:value="'1'">01 - Thiruvottyur</option>
-                   <option th:value="'2'">02 - Manali</option>
-                   <option th:value="'3'">03 - Madhavaram</option>
-                   <option th:value="'4'">04 - Tondiarpet</option>
-                   <option th:value="'5'">05 - Royapuram</option>
-                   <option th:value="'6'">06 - Thiru-Vi-Ka Nagar</option>
-                   <option th:value="'7'">07 - Ambattur</option>
-                   <option th:value="'8'">08 - Anna Nagar</option>
-                   <option th:value="'9'">09 - Teynampet</option>
-                   <option th:value="'10'">10 - Kodambakkam</option>
-                   <option th:value="'11'">11 - Valasaravakkam</option>
-                   <option th:value="'12'">12 - Alandur</option>
-                   <option th:value="'13'">13 - Adyar</option>
-                   <option th:value="'14'">14 - Perungudi</option>
-                   <option th:value="'1'">15 - Sholinganallur</option>
-                  </select>
+                   <select th:field="*{zoneNo}" id="zoneNo" class="form-select" > </select>
                 </div>
                 <div class="col-md-4">
                   <label for="div" class="form-label">Div</label>
@@ -157,8 +116,12 @@ function showPosition(position) {
                   <input type="time" class="form-control" id="assetClosingTime" th:field="*{assetClosingTime}">
                 </div>
                 <div class="col-md-4">
-                  <label for="assetGeoLocation" class="form-label">Geo-Location</label>
-                  <input type="text" class="form-control" id="assetGeoLocation" onclick="getLocation()">
+                  <label for="assetGeoLocation" class="form-label">Latitude</label>
+                  <input type="text" class="form-control" id="assetLatitude" onclick="getLocation()">
+                </div> 
+                <div class="col-md-4">
+                  <label for="assetGeoLocation" class="form-label">Longitude</label>
+                  <input type="text" class="form-control" id="assetLongitude">
                 </div> 
                 <div class="col-md-4">
                   <label for="assetFile" class="col-sm-4 col-form-label">File</label>
@@ -166,12 +129,52 @@ function showPosition(position) {
                     <input class="form-control" type="file" id="assetFile" th:field="*{assetFile}">
                   </div>
                 </div> 
+                <div class="col-md-4">
+                  	<!-- <a th:href="@{'/asset/test'}"> -->
+                <button type="button" class="btn btn-primary" onclick="geoLoactionMap();">Search</button>
+                	<!-- </a> -->
+                </div>
                 
                 
                
                 </div>
               <!-- End Multi Columns Form -->
 
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    
+    <section class="section" id='map'>
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Location Search</h5>
+					<form method="GET"  target="iframe"  action="./find_zone_map.jsp"  name="assetLocationForm" id="assetLocationForm">
+				<div class="row g-3">
+                <div class="col-10">
+                  <label for="locname" class="form-label">Location Name</label>
+                  <input type="text" class="form-control" id="locname" name="locname" value='' onKeyPress="return /[a-z, ]/i.test(event.key)">
+                </div>
+                
+                <div class="text-center">
+                  <button type="button" class="btn btn-primary" onClick="return fnSearch();">Search</button>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+				</div>
+				</form>
+				<div id="iframe" style="width: 100%;padding-top: 10px;">
+				<!-- <%if(latitude.equals("") || longitude.equals("")){%> -->
+				<iframe name="iframe" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="600px"  overflow-y="scrolling" width="100%" allowfullscreen src="./find_zone_map.jsp"></iframe>
+				<!-- <%} else {%> -->
+				<!-- <iframe name="iframe" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="600px"  overflow-y="scrolling" width="100%" allowfullscreen src="./find_zone_map.jsp?hvmode=R&Type=<%=sType%>&latitude=<%=latitude%>&longitude=<%=longitude%>&locname="></iframe> -->
+				<!-- <%}%> -->
+			</div>
+			
             </div>
           </div>
 
@@ -232,5 +235,53 @@ function showPosition(position) {
 	<div th:replace="/fragment/Js.html::js"></div>
 
 </body>
+
+<script>
+var x = document.getElementById("assetGeoLocation");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+	var lat=position.coords.latitude;
+	var lon=position.coords.longitude;
+	
+	$("#assetGeoLocation").val(lat);
+	$("#assetGeoLocation").val(lon);
+ 
+	/* x.innerHTML = "Latitude: " + position.coords.latitude +  "<br>Longitude: " + position.coords.longitude; */
+  
+  
+}
+
+$(document).ready(function(){
+	$("#map").show();
+});
+
+function geoLoactionMap(){
+	$("#map").show();
+}
+
+function fnSearch()
+{
+	var vlocname = document.getElementById("locname").value;
+	
+	vlocname =  vlocname.trim();
+	if (vlocname == "")
+	{
+		alert('Location is required');
+		document.getElementById("locname").focus();
+		return false;
+	}	
+
+		$("#iframe").show();
+		$( "#assetLocationForm" ).submit();
+}
+</script>
 
 </html>

@@ -15,9 +15,34 @@ $(function(){
 	  .on("cut copy paste",function(e){
 		e.preventDefault();
 	  });
+	  
+	  getZoneNo();
 
 });
 
+//Getting Zone No
+function getZoneNo() {
+
+	$.ajax({
+		type: "GET",
+		url: '/asset/api/getZoneNo',
+		dataType: 'json',
+		success: function(bodyMessage) {
+			var tempJson = bodyMessage['ZoneDetailsResult'];
+			for (var i = 0; i < tempJson.length; i++) {
+				var tempJsonValue = tempJson[i]['ZoneId'];
+				var tempJsonLabel = tempJson[i]['ZoneName'];
+				$('#zoneNo').append("<option value='" + tempJsonValue + "'>" + tempJsonLabel + "</option>");
+			}
+		}, error: function(e, ts, et) 
+		{ 
+			alert(ts) 
+		}
+
+	});
+}
+
+//Sending OTP
 function sendOtp(){
 	
 	var mobileNo = $("#mobileNo").val();
@@ -38,6 +63,7 @@ function sendOtp(){
 	    });
 }
 
+//Verify OTP
 function verifyOtp(){
 	
 	var otp = $("#otp").val();
@@ -47,9 +73,9 @@ function verifyOtp(){
 			url: '/asset/feedback/verifyOtp',
 			data: {'otp':otp},
 			dataType: 'json',
-			success: function(message) {
+			success: function(bodyMessage) {
 					 alert("OTP is Verified!!!");
-					if(message!="Error"){
+					if(bodyMessage!="Error"){
 					 alert("OTP is Verified!!!");
 					}else{
 					 alert("OTP is Incorrect!!!");	
