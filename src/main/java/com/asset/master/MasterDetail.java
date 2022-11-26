@@ -2,12 +2,9 @@ package com.asset.master;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -16,7 +13,7 @@ import lombok.Data;
 @Data
 @Table(name = "asset_master_detail")
 public class MasterDetail {
-
+ 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="master_detail_id")

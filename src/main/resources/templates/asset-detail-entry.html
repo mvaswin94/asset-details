@@ -154,11 +154,15 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Location Search</h5>
-					<form method="GET"  target="iframe"  action="./find_zone_map.jsp"  name="assetLocationForm" id="assetLocationForm">
+					<form method="GET"  target="iframe"  th:action="@{/asset/test/map}"  name="assetLocationForm" id="assetLocationForm">
 				<div class="row g-3">
                 <div class="col-10">
+                <input type="hidden" id="hvmode" name="hvmode" value="R"  />   
+			 	<input type="hidden" id="Type" name="Type" value=""  />  
+				<input type="hidden" id="latitude" name="latitude" value=""  />  
+				<input type="hidden" id="longitude" name="longitude" value=""  /> 
                   <label for="locname" class="form-label">Location Name</label>
-                  <input type="text" class="form-control" id="locname" name="locname" value='' onKeyPress="return /[a-z, ]/i.test(event.key)">
+                  <input type="text" class="form-control" id="locationName" name="locationName" value='' onKeyPress="return /[a-z, ]/i.test(event.key)">
                 </div>
                 
                 <div class="text-center">
@@ -169,7 +173,7 @@
 				</form>
 				<div id="iframe" style="width: 100%;padding-top: 10px;">
 				<!-- <%if(latitude.equals("") || longitude.equals("")){%> -->
-				<iframe name="iframe" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="600px"  overflow-y="scrolling" width="100%" allowfullscreen src="./find_zone_map.jsp"></iframe>
+				<!-- <iframe name="iframe" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="600px"  overflow-y="scrolling" width="100%" allowfullscreen src="./find_zone_map.jsp"></iframe> -->
 				<!-- <%} else {%> -->
 				<!-- <iframe name="iframe" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="600px"  overflow-y="scrolling" width="100%" allowfullscreen src="./find_zone_map.jsp?hvmode=R&Type=<%=sType%>&latitude=<%=latitude%>&longitude=<%=longitude%>&locname="></iframe> -->
 				<!-- <%}%> -->
@@ -269,8 +273,7 @@ function geoLoactionMap(){
 
 function fnSearch()
 {
-	var vlocname = document.getElementById("locname").value;
-	
+	var vlocname = document.getElementById("locationName").value;
 	vlocname =  vlocname.trim();
 	if (vlocname == "")
 	{
@@ -280,7 +283,7 @@ function fnSearch()
 	}	
 
 		$("#iframe").show();
-		$( "#assetLocationForm" ).submit();
+		$("#assetLocationForm").submit();
 }
 </script>
 
