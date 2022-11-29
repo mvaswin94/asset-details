@@ -1,5 +1,6 @@
 package com.asset.test;
 
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,13 +23,13 @@ public class testRestController {
 	@RequestMapping(value = "/test/map", method = RequestMethod.GET)
 	public String testMap(HttpServletRequest request, @RequestParam String locationName) {
 		
-		System.out.println("TEST");
 		String sSearchLocation ="";
 		//String sTmp = request.getParameter("locname");
 		String sTmp = locationName;
 		String sLATITUDE = "";
 		String sLONGITUDE = ""; 
-		if ( sTmp != null && !sTmp.equals("") ) sSearchLocation = sTmp;	
+		if ( sTmp != null && !sTmp.equals("") ) sSearchLocation = sTmp;
+		System.out.println("sSearchLocation---: "+ sSearchLocation);
 		String str=request.getParameter("serviceinput");
 		
 	 	if (str==null )
@@ -73,11 +74,11 @@ public class testRestController {
 				if ( (Boolean)object.get("status")) 
 				{
 					JSONObject dataObject = (JSONObject) object.get("data");
-					System.out.println("latitude : "+ dataObject.get("latitude"));
-					System.out.println("longitude : "+ dataObject.get("longitude"));
+					System.out.println("latitude  1 : "+ dataObject.get("latitude"));
+					System.out.println("longitude 1 : "+ dataObject.get("longitude"));
 					
-					sLATITUDE = ""+ (Double)dataObject.get("latitude");
-					sLONGITUDE = ""+ (Double)dataObject.get("longitude");
+					sLATITUDE = ""+ (BigDecimal)dataObject.get("latitude");
+					sLONGITUDE = ""+ (BigDecimal)dataObject.get("longitude");
 				}
 			}
 			catch(Exception e)
@@ -102,10 +103,10 @@ public class testRestController {
 			System.out.println("Record Not Found"); 
 			//return;
 		}
-		
-		System.out.println("sLATITUDE---:"+sLATITUDE);
+		String bodyMessage = sLATITUDE;
+		System.out.println("sLATITUDE---:"+sLATITUDE);		
 		System.out.println("sLONGITUDE---:"+sLONGITUDE);
 		
-		return sLATITUDE;
+		return bodyMessage;
 	}
 }
