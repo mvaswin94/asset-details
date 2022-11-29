@@ -2,6 +2,8 @@ package com.asset.test;
 
 import java.math.BigDecimal;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,7 +23,7 @@ import org.springframework.web.client.RestTemplate;
 public class testRestController {
 	
 	@RequestMapping(value = "/test/map", method = RequestMethod.GET)
-	public String testMap(HttpServletRequest request, @RequestParam String locationName) {
+	public Map<String, String> testMap(HttpServletRequest request, @RequestParam String locationName) {
 		
 		String sSearchLocation ="";
 		//String sTmp = request.getParameter("locname");
@@ -103,10 +105,20 @@ public class testRestController {
 			System.out.println("Record Not Found"); 
 			//return;
 		}
-		String bodyMessage = sLATITUDE;
+		//String bodyMessage = sLATITUDE;
 		System.out.println("sLATITUDE---:"+sLATITUDE);		
 		System.out.println("sLONGITUDE---:"+sLONGITUDE);
 		
-		return bodyMessage;
+//		JSONObject jsonObj = new JSONObject(); 
+//	      jsonObj.put("sLATITUDE", sLATITUDE);
+//	      jsonObj.put("sLONGITUDE", sLONGITUDE);
+//
+//	      System.out.println("jsonObj :"+jsonObj);
+	      
+	    Map<String, String> map = new HashMap<String, String>();
+	    map.put("sLATITUDE", sLATITUDE); 
+	    map.put("sLONGITUDE", sLONGITUDE);
+	    
+		return map;
 	}
 }

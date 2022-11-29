@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>        
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.1.0/dist/geosearch.css"/>       
+	<script src="https://unpkg.com/leaflet-geosearch@3.1.0/dist/bundle.min.js"></script>
+	<script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
+        
 <!-- head tag -->
 <div th:replace="/fragment/Head.html::head"></div>
 
@@ -131,7 +137,7 @@
                 </div> 
                 <div class="col-md-4">
                   	<!-- <a th:href="@{'/asset/test'}"> -->
-                <button type="button" class="btn btn-primary" onclick="geoLoactionMap();">Search</button>
+                <!-- <button type="button" class="btn btn-primary" onclick="geoLoactionMap();">Search</button> -->
                 	<!-- </a> -->
                 </div>
                 
@@ -147,7 +153,7 @@
       </div>
     </section>
     
-    <section class="section" id='map'>
+    <section class="section" id='locationSearch'>
       <div class="row">
         <div class="col-lg-12">
 
@@ -159,14 +165,14 @@
                 <div class="col-10">
                 <input type="hidden" id="hvmode" name="hvmode" value="R"  />   
 			 	<input type="hidden" id="Type" name="Type" value=""  />  
-				<input type="hidden" id="latitude" name="latitude" value=""  />  
-				<input type="hidden" id="longitude" name="longitude" value=""  /> 
+				<input type="text" id="latitude" name="latitude" value=""  />  
+				<input type="text" id="longitude" name="longitude" value=""  /> 
                   <label for="locname" class="form-label">Location Name</label>
-                  <input type="text" class="form-control" id="locationName" name="locationName" value='' onKeyPress="return /[a-z, ]/i.test(event.key)">
+                  <input type="text" class="form-control" id="locationName" name="locationName" value='' onKeyPress="locationKeyPress();">
                 </div>
                 
                 <div class="text-center">
-                  <button type="button" class="btn btn-primary" onClick="return fnSearch();">Search</button>
+                  <button type="button" class="btn btn-primary" onClick="fnSearch();">Search</button>
                   <button type="reset" class="btn btn-secondary">Reset</button>
                 </div>
 				</div>
@@ -177,16 +183,26 @@
 				<!-- <%} else {%> -->
 				<!-- <iframe name="iframe" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="600px"  overflow-y="scrolling" width="100%" allowfullscreen src="./find_zone_map.jsp?hvmode=R&Type=<%=sType%>&latitude=<%=latitude%>&longitude=<%=longitude%>&locname="></iframe> -->
 				<!-- <%}%> -->
+				</div>
 			</div>
-			
-            </div>
           </div>
 
         </div>
       </div>
+      
     </section>
-    
-    <section class="section">
+
+			<section class="section">
+				<div>
+					<div style="width: 100%; padding-top: 10px; height: 25pc;" id='map'>
+						<!-- <div class="card">
+								<div class="card-body"></div>
+							</div> -->
+					</div>
+				</div>
+			</section>
+
+			<section class="section">
       <div class="row">
         <div class="col-lg-12">
 
@@ -251,6 +267,10 @@ function getLocation() {
   }
 }
 
+function locationKeyPress(){
+	return /[a-z, ]/i.test(event.key)
+}
+
 function showPosition(position) {
 	var lat=position.coords.latitude;
 	var lon=position.coords.longitude;
@@ -259,12 +279,10 @@ function showPosition(position) {
 	$("#assetGeoLocation").val(lon);
  
 	/* x.innerHTML = "Latitude: " + position.coords.latitude +  "<br>Longitude: " + position.coords.longitude; */
-  
-  
 }
 
 $(document).ready(function(){
-	$("#map").show();
+	$("#map").hide();
 });
 
 function geoLoactionMap(){
@@ -273,6 +291,10 @@ function geoLoactionMap(){
 
 function fnSearch()
 {
+	$("#map").show();
+	
+	getLocation();
+	
 	var vlocname = document.getElementById("locationName").value;
 	vlocname =  vlocname.trim();
 	if (vlocname == "")
@@ -284,30 +306,40 @@ function fnSearch()
 	alert('vlocname'+vlocname);
 		$("#iframe").show();
 		/* $("#assetLocationForm").submit(); */
-		getLocation();
 }
 
 function getLocation(){
 	
 	var locationName = $("#locationName").val();
 	
+	
 	$.ajax({
-			type: "GET",
-			url: '/asset/test/map',
-			data: {'locationName':locationName},
-			dataType: 'json',
-			success: function(bodyMessage) {
-				var tempJson = bodyMessage['sLATITUDE'];
-				$("#latitude").val(tempJson);	
+			type : "GET",
+			url : '/asset/test/map',
+			data : {
+				'locationName' : locationName
+			},
+			dataType : 'json',
+			success : function(map) {
+				var tempJson1 = map['sLATITUDE'];
+				var tempJson2 = map['sLONGITUDE'];
+					//alert("tempJson --1:" + tempJson1);
+				$("#latitude").val(tempJson1);
+				$("#longitude").val(tempJson2);
+					//alert("tempJson --2:" + tempJson2);
+				var latitude = $("#latitude").val();
+				var longitude = $("#longitude").val();
+					//alert("Lat : " + latitude + " Long : " + longitude);
 			}
-	    });
-}
+		});
+	}
 </script>
 
 <script>
 
 var latitude = $("#latitude").val();
 var longitude = $("#longitude").val();
+//alert("Lat : "+latitude+" Long : "+longitude);
 
 var map = L.map('map').setView([latitude, longitude], 12);
 var empty=L.tileLayer('');
@@ -398,7 +430,7 @@ function onEachFeature(feature, layer){
 	layer.bindPopup(popup);
  }
 
-$.getJSON("./assets/GCC_ZONE.geojson",function(data){
+$.getJSON("../../assets/json/GCC_ZONE.geojson",function(data){
 // add GeoJSON layer to the map once the file is loaded
 zone=L.geoJson(
 data,
@@ -411,7 +443,7 @@ lctrl.addOverlay(zone, "<span style='color:red;'>New Zone </span>");
 
 });
 
-$.getJSON("/gcc/citizen-details/location-service/assets/GCC_ZONE.geojson",function(data){
+$.getJSON("../../assets/json/GCC_ZONE.geojson",function(data){
 // add GeoJSON layer to the map once the file is loaded
 zone=L.geoJson(
 data,
@@ -424,7 +456,7 @@ lctrl.addOverlay(zone, "<span style='color:green;'>Exist Zone</span>");
 
 });
 
-$.getJSON("/gcc/citizen-details/location-service/assets/GCC_DIVISION.geojson",function(data){
+$.getJSON("../../assets/json/GCC_DIVISION.geojson",function(data){
 // add GeoJSON layer to the map once the file is loaded
 division=L.geoJson(
 data,
@@ -436,7 +468,7 @@ lctrl.addOverlay(division, "<span style='color:blue;'>Exist Division </span> ");
 });
 						   
 
-$.getJSON("./assets/GCC_DIVISION.geojson",function(data){
+$.getJSON("../../assets/json/GCC_ZONE.geojson",function(data){
 // add GeoJSON layer to the map once the file is loaded
 division=L.geoJson(
 data,
