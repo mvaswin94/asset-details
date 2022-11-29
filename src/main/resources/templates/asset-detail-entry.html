@@ -124,12 +124,52 @@
                 <div class="col-md-4">
                   <label for="assetGeoLocation" class="form-label">Latitude</label>
                   <!-- <input type="text" class="form-control" id="assetLatitude" onclick="getLocation()"> -->
-                  <input type="text" class="form-control" id="assetLatitude">
+                  <input type="text" class="form-control" id="assetLatitude" data-bs-toggle="modal" data-bs-target="#largeModal">
                 </div> 
                 <div class="col-md-4">
                   <label for="assetGeoLocation" class="form-label">Longitude</label>
-                  <input type="text" class="form-control" id="assetLongitude">
+                  <input type="text" class="form-control" id="assetLongitude" data-bs-toggle="modal" data-bs-target="#largeModal">
                 </div> 
+                
+                <!-- Large Modal -->
+              <div class="modal fade" id="largeModal" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Location Search</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form method="GET"  target="iframe"  th:action="@{/asset/test/map}"  name="assetLocationForm" id="assetLocationForm">
+							<div class="row g-3">
+                				<div class="col-10">
+                					<input type="hidden" id="hvmode" name="hvmode" value="R"  />   
+			 						<input type="hidden" id="Type" name="Type" value=""  />  
+                  					<label for="locname" class="form-label">Location Name</label>
+                  					<input type="text" class="form-control" id="locationName" name="locationName" value='' onKeyPress="locationKeyPress();">
+                				</div>
+		                		<div class="text-center">
+		                  			<button type="button" class="btn btn-primary" onClick="getLocation();">Search</button>
+		                  			<button type="reset" class="btn btn-secondary">Reset</button>
+		                		</div>
+							</div>
+						</form>
+						
+						<div>
+					<div style="width: 100%; padding-top: 10px; height: 16pc;" id='mapid'>
+					</div>
+				</div>
+				
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Large Modal-->
+              
+              
                 <div class="col-md-4">
                   <label for="assetFile" class="col-sm-4 col-form-label">File</label>
                   <div class="col-sm-12">
@@ -154,56 +194,7 @@
       </div>
     </section>
     
-    <section class="section" id='locationSearch'>
-      <div class="row">
-        <div class="col-lg-12">
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Location Search</h5>
-					<form method="GET"  target="iframe"  th:action="@{/asset/test/map}"  name="assetLocationForm" id="assetLocationForm">
-				<div class="row g-3">
-                <div class="col-10">
-                <input type="hidden" id="hvmode" name="hvmode" value="R"  />   
-			 	<input type="hidden" id="Type" name="Type" value=""  />  
-				<input type="text" id="latitude" name="latitude" value=""  />  
-				<input type="text" id="longitude" name="longitude" value=""  /> 
-                  <label for="locname" class="form-label">Location Name</label>
-                  <input type="text" class="form-control" id="locationName" name="locationName" value='' onKeyPress="locationKeyPress();">
-                </div>
-                
-                <div class="text-center">
-                  <button type="button" class="btn btn-primary" onClick="fnSearch();">Search</button>
-                  <button type="reset" class="btn btn-secondary">Reset</button>
-                </div>
-				</div>
-				</form>
-				<div id="iframe" style="width: 100%;padding-top: 10px;">
-				<!-- <%if(latitude.equals("") || longitude.equals("")){%> -->
-				<!-- <iframe name="iframe" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="600px"  overflow-y="scrolling" width="100%" allowfullscreen src="./find_zone_map.jsp"></iframe> -->
-				<!-- <%} else {%> -->
-				<!-- <iframe name="iframe" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="600px"  overflow-y="scrolling" width="100%" allowfullscreen src="./find_zone_map.jsp?hvmode=R&Type=<%=sType%>&latitude=<%=latitude%>&longitude=<%=longitude%>&locname="></iframe> -->
-				<!-- <%}%> -->
-				</div>
-			</div>
-          </div>
-
-        </div>
-      </div>
-      
-    </section>
-
-			<section class="section">
-				<div>
-					<div style="width: 100%; padding-top: 10px; height: 25pc;" id='mapid'>
-						<!-- <div class="card">
-								<div class="card-body"></div>
-							</div> -->
-					</div>
-				</div>
-			</section>
-
-			<section class="section">
+    <section class="section">
       <div class="row">
         <div class="col-lg-12">
 
@@ -258,63 +249,18 @@
 </body>
 
 <script>
-var x = document.getElementById("assetGeoLocation");
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
 
 function locationKeyPress(){
 	return /[a-z, ]/i.test(event.key)
 }
 
-function showPosition(position) {
-	var lat=position.coords.latitude;
-	var lon=position.coords.longitude;
-	
-	$("#assetGeoLocation").val(lat);
-	$("#assetGeoLocation").val(lon);
- 
-	/* x.innerHTML = "Latitude: " + position.coords.latitude +  "<br>Longitude: " + position.coords.longitude; */
-}
-
-$(document).ready(function(){
+/* $(document).ready(function(){
 	$("#map").hide();
 });
 
 function geoLoactionMap(){
 	$("#map").show();
-}
-
-function fnSearchTEST()
-{
-	$("#map").show();
-	
-	//getLocation();
-	//setTimeout(getLocation, 1000);
-	
-	var vlocname = document.getElementById("locationName").value;
-	vlocname =  vlocname.trim();
-	if (vlocname == "")
-	{
-		alert('Location is required');
-		document.getElementById("locname").focus();
-		return false;
-	}	
-	//alert('vlocname'+vlocname);
-		$("#iframe").show();
-		/* $("#assetLocationForm").submit(); */
-		//var latitude = $("#assetLatitude").val();
-		//var longitude = $("#assetLongitude").val();
-		//alert("Lat before getMap() : "+latitude+" Long before getMap(): "+longitude);
-		
-	//getMap();	
-	setTimeout(getMap, 1000);
-}
+} */
 
 function getLocation(){
 	
@@ -333,8 +279,7 @@ function getLocation(){
 					//alert("tempJson --1:" + tempJson1);
 				$("#assetLatitude").val(tempJson1);
 				$("#assetLongitude").val(tempJson2);
-					alert("tempJson --2:" + tempJson2);
-				
+					//alert("tempJson --2:" + tempJson2);
 					
 				 var container = L.DomUtil.get('mapid');
 				if (container != null) {
@@ -353,180 +298,4 @@ function getLocation(){
 	}
 </script>
 
-<script>
-
-function getMap(){
-//var latitude = $("#assetLatitude").val();
-//var longitude = $("#assetLongitude").val();
-//alert("Lat : "+latitude+" Long : "+longitude);
-var latitude = "13.00416";
-var longitude = "80.22014";
-
-var map = L.map('map').setView([13.00416, 80.22014], 12);
-alert("map ------"+map);
-var empty=L.tileLayer('');
-
-var osm = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-		   attribution: ''
-		}).setZIndex(-1);
-var googleHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
-				maxZoom: 50,
-				//subdomains:['mt0','mt1','mt2','mt3']
-				subdomains:['mt2','mt3']
-			}).setZIndex(-1);
-var googleStreets = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
-				maxZoom: 50,
-				//subdomains:['mt0','mt1','mt2','mt3']
-				subdomains:['mt2','mt3']
-			}).setZIndex(-1).addTo(map);
-var googleTerrain = L.tileLayer('https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
-				maxZoom: 50,
-			//	subdomains:['mt0','mt1','mt2','mt3']
-				subdomains:['mt2','mt3']
-			}).setZIndex(-1);
-
-var googleSat = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
-				maxZoom: 50,
-				//subdomains:['mt0','mt1','mt2','mt3']
-				subdomains:['mt2','mt3']
-			}).setZIndex(-1);	
-			
-	var baseLayers = {
-		"No Basemap": empty,
-		"Open Street": osm,
-		"Google Streets":googleStreets,
-		"Google Terrain":googleTerrain,
-		"Google Hybrid":googleHybrid,
-		"Google Satellite":googleSat,
-
-	};
-
-var overlays = {
-	};		
-var lctrl=L.control.layers(baseLayers, overlays,{collapsed:false}).addTo(map);
-
-
-var zone,division;
-
-var zoneStyle={
-fillColor: "yellow",
-weight: 2,
-opacity: 1,
-color: 'green',
-dashArray: '3',
-fillOpacity: 0.1
-};
-
-var zoneStyle_new={
-fillColor: "yellow",
-weight: 2,
-opacity: 1,
-color: 'red',
-dashArray: '3',
-fillOpacity: 0.1
-};
-
-var divStyle={
-fillColor: "white",
-weight: 1,
-opacity: 1,
-color: 'blue',
-dashArray: '3',
-fillOpacity: 0.1
-};  
-
-var divStyle_new={
-fillColor: "white",
-weight: 1,
-opacity: 1,
-color: '#CC00CC',
-dashArray: '3',
-fillOpacity: 0.1
-};  
-
-function onEachFeature(feature, layer){
-	var popup = '';
-	for (var clave in feature.properties) { 
-	  popup += clave +':'+ feature.properties[clave]+'<br />';
-	}
-	layer.bindPopup(popup);
- }
-
-$.getJSON("../../assets/json/GCC_ZONE.geojson",function(data){
-// add GeoJSON layer to the map once the file is loaded
-zone=L.geoJson(
-data,
-{style: zoneStyle_new,
-onEachFeature: onEachFeature,
- }
-).addTo(map);
-map.fitBounds(zone.getBounds());
-lctrl.addOverlay(zone, "<span style='color:red;'>New Zone </span>");
-
-});
-
-$.getJSON("../../assets/json/GCC_ZONE.geojson",function(data){
-// add GeoJSON layer to the map once the file is loaded
-zone=L.geoJson(
-data,
-{style: zoneStyle,
-onEachFeature: onEachFeature,
- }
-).addTo(map);
-map.fitBounds(zone.getBounds());
-lctrl.addOverlay(zone, "<span style='color:green;'>Exist Zone</span>");
-
-});
-
-$.getJSON("../../assets/json/GCC_DIVISION.geojson",function(data){
-// add GeoJSON layer to the map once the file is loaded
-division=L.geoJson(
-data,
-{style: divStyle,
-onEachFeature: onEachFeature,
- }
-).addTo(map);
-lctrl.addOverlay(division, "<span style='color:blue;'>Exist Division </span> ");
-});
-						   
-
-$.getJSON("../../assets/json/GCC_ZONE.geojson",function(data){
-// add GeoJSON layer to the map once the file is loaded
-division=L.geoJson(
-data,
-{style: divStyle_new,
-onEachFeature: onEachFeature,
- }
-).addTo(map);
-lctrl.addOverlay(division, "<span style='color:#CC00CC;'>New Division</span> ");
-});
-
-setTimeout(onBtClick, 1000);
-}
-		function onBtClick()
-		{
-			//var latitude = $("#latitude").val();
-			//var longitude = $("#longitude").val();
-			
-			var latitude = "13.00416";
-			var longitude = "80.22014";
-			
-			//alert("Lat onBtclick: "+latitude+" Long onBtclick: "+longitude);
-			var marker = L.marker([13.00416, 80.22014]);
-			alert("marker---onBtclick"+marker);
-			marker.addTo(map);
-			alert("TESTING");
-			map.flyTo([ 13.00416, 80.22014], 15);
-		}
-		
-</script>
-
-
-<script>
-	
-function fnSearch(){
-	//getLocation();
-	setTimeout(getLocation, 1000);
-}
-</script>
 </html>
