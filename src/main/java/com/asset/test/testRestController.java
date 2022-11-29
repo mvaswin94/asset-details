@@ -115,10 +115,10 @@ public class testRestController {
 //
 //	      System.out.println("jsonObj :"+jsonObj);
 	      
-	    Map<String, String> map = new HashMap<String, String>();
-	    map.put("sLATITUDE", sLATITUDE); 
-	    map.put("sLONGITUDE", sLONGITUDE);
+	    Map<String, String> hasMap = new HashMap<String, String>();
+	    hasMap.put("sLATITUDE", sLATITUDE); 
+	    hasMap.put("sLONGITUDE", sLONGITUDE);
 	    
-		return map;
+		return hasMap;
 	}
 }

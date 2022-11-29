@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.1.0/dist/geosearch.css"/>       
 	<script src="https://unpkg.com/leaflet-geosearch@3.1.0/dist/bundle.min.js"></script>
 	<script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
-        
+	
 <!-- head tag -->
 <div th:replace="/fragment/Head.html::head"></div>
 
@@ -123,7 +123,8 @@
                 </div>
                 <div class="col-md-4">
                   <label for="assetGeoLocation" class="form-label">Latitude</label>
-                  <input type="text" class="form-control" id="assetLatitude" onclick="getLocation()">
+                  <!-- <input type="text" class="form-control" id="assetLatitude" onclick="getLocation()"> -->
+                  <input type="text" class="form-control" id="assetLatitude">
                 </div> 
                 <div class="col-md-4">
                   <label for="assetGeoLocation" class="form-label">Longitude</label>
@@ -194,7 +195,7 @@
 
 			<section class="section">
 				<div>
-					<div style="width: 100%; padding-top: 10px; height: 25pc;" id='map'>
+					<div style="width: 100%; padding-top: 10px; height: 25pc;" id='mapid'>
 						<!-- <div class="card">
 								<div class="card-body"></div>
 							</div> -->
@@ -289,11 +290,12 @@ function geoLoactionMap(){
 	$("#map").show();
 }
 
-function fnSearch()
+function fnSearchTEST()
 {
 	$("#map").show();
 	
-	getLocation();
+	//getLocation();
+	//setTimeout(getLocation, 1000);
 	
 	var vlocname = document.getElementById("locationName").value;
 	vlocname =  vlocname.trim();
@@ -303,15 +305,20 @@ function fnSearch()
 		document.getElementById("locname").focus();
 		return false;
 	}	
-	alert('vlocname'+vlocname);
+	//alert('vlocname'+vlocname);
 		$("#iframe").show();
 		/* $("#assetLocationForm").submit(); */
+		//var latitude = $("#assetLatitude").val();
+		//var longitude = $("#assetLongitude").val();
+		//alert("Lat before getMap() : "+latitude+" Long before getMap(): "+longitude);
+		
+	//getMap();	
+	setTimeout(getMap, 1000);
 }
 
 function getLocation(){
 	
 	var locationName = $("#locationName").val();
-	
 	
 	$.ajax({
 			type : "GET",
@@ -320,16 +327,27 @@ function getLocation(){
 				'locationName' : locationName
 			},
 			dataType : 'json',
-			success : function(map) {
-				var tempJson1 = map['sLATITUDE'];
-				var tempJson2 = map['sLONGITUDE'];
+			success : function(hasMap) {
+				var tempJson1 = hasMap['sLATITUDE'];
+				var tempJson2 = hasMap['sLONGITUDE'];
 					//alert("tempJson --1:" + tempJson1);
-				$("#latitude").val(tempJson1);
-				$("#longitude").val(tempJson2);
-					//alert("tempJson --2:" + tempJson2);
-				var latitude = $("#latitude").val();
-				var longitude = $("#longitude").val();
-					//alert("Lat : " + latitude + " Long : " + longitude);
+				$("#assetLatitude").val(tempJson1);
+				$("#assetLongitude").val(tempJson2);
+					alert("tempJson --2:" + tempJson2);
+				
+					
+				 var container = L.DomUtil.get('mapid');
+				if (container != null) {
+				container._leaflet_id = null;
+				} 
+				var mymap = L.map('mapid').setView([ tempJson1, tempJson2 ], 15);
+				L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+					attribution : ''
+				}).addTo(mymap);
+				var marker = L.marker([ tempJson1, tempJson2 ]).addTo(mymap);
+				var polygon = L.polygon(
+						[ [ tempJson1, tempJson2 ], [ tempJson1, tempJson2 ],
+								[ tempJson1, tempJson2 ] ]).addTo(mymap);
 			}
 		});
 	}
@@ -337,11 +355,15 @@ function getLocation(){
 
 <script>
 
-var latitude = $("#latitude").val();
-var longitude = $("#longitude").val();
+function getMap(){
+//var latitude = $("#assetLatitude").val();
+//var longitude = $("#assetLongitude").val();
 //alert("Lat : "+latitude+" Long : "+longitude);
+var latitude = "13.00416";
+var longitude = "80.22014";
 
-var map = L.map('map').setView([latitude, longitude], 12);
+var map = L.map('map').setView([13.00416, 80.22014], 12);
+alert("map ------"+map);
 var empty=L.tileLayer('');
 
 var osm = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -479,14 +501,32 @@ onEachFeature: onEachFeature,
 lctrl.addOverlay(division, "<span style='color:#CC00CC;'>New Division</span> ");
 });
 
+setTimeout(onBtClick, 1000);
+}
 		function onBtClick()
 		{
-			var marker = L.marker([longitude, longitude]);
+			//var latitude = $("#latitude").val();
+			//var longitude = $("#longitude").val();
+			
+			var latitude = "13.00416";
+			var longitude = "80.22014";
+			
+			//alert("Lat onBtclick: "+latitude+" Long onBtclick: "+longitude);
+			var marker = L.marker([13.00416, 80.22014]);
+			alert("marker---onBtclick"+marker);
 			marker.addTo(map);
-			map.flyTo([ longitude, longitude], 15);
+			alert("TESTING");
+			map.flyTo([ 13.00416, 80.22014], 15);
 		}
 		
-		setTimeout(onBtClick, 1000);
 </script>
 
+
+<script>
+	
+function fnSearch(){
+	//getLocation();
+	setTimeout(getLocation, 1000);
+}
+</script>
 </html>
