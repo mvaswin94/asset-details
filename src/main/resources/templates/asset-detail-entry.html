@@ -285,14 +285,150 @@ function getLocation(){
 				if (container != null) {
 				container._leaflet_id = null;
 				} 
-				var mymap = L.map('mapid').setView([ tempJson1, tempJson2 ], 15);
+				var map = L.map('mapid').setView([ tempJson1, tempJson2 ], 15);
 				L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 					attribution : ''
-				}).addTo(mymap);
-				var marker = L.marker([ tempJson1, tempJson2 ]).addTo(mymap);
+				}).addTo(map);
+				var marker = L.marker([ tempJson1, tempJson2 ]).addTo(map);
 				var polygon = L.polygon(
 						[ [ tempJson1, tempJson2 ], [ tempJson1, tempJson2 ],
-								[ tempJson1, tempJson2 ] ]).addTo(mymap);
+								[ tempJson1, tempJson2 ] ]).addTo(map);
+				
+				var empty=L.tileLayer('');
+				var osm = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+					   attribution: ''
+					}).setZIndex(-1);
+		var googleHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+							maxZoom: 50,
+							//subdomains:['mt0','mt1','mt2','mt3']
+							subdomains:['mt2','mt3']
+						}).setZIndex(-1);
+		var googleStreets = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
+							maxZoom: 50,
+							//subdomains:['mt0','mt1','mt2','mt3']
+							subdomains:['mt2','mt3']
+						}).setZIndex(-1).addTo(map);
+		var googleTerrain = L.tileLayer('https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
+							maxZoom: 50,
+						//	subdomains:['mt0','mt1','mt2','mt3']
+							subdomains:['mt2','mt3']
+						}).setZIndex(-1);
+		
+		var googleSat = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+							maxZoom: 50,
+							//subdomains:['mt0','mt1','mt2','mt3']
+							subdomains:['mt2','mt3']
+						}).setZIndex(-1);	
+						
+				var baseLayers = {
+					"No Basemap": empty,
+					"Open Street": osm,
+					"Google Streets":googleStreets,
+					"Google Terrain":googleTerrain,
+					"Google Hybrid":googleHybrid,
+					"Google Satellite":googleSat,
+		
+				};
+		
+		var overlays = {
+				};		
+		var lctrl=L.control.layers(baseLayers, overlays,{collapsed:false}).addTo(map);
+		
+		
+		var zone,division;
+		
+		var zoneStyle={
+			fillColor: "yellow",
+			weight: 2,
+			opacity: 1,
+			color: 'green',
+			dashArray: '3',
+			fillOpacity: 0.1
+		  };
+		  
+		var zoneStyle_new={
+			fillColor: "yellow",
+			weight: 2,
+			opacity: 1,
+			color: 'red',
+			dashArray: '3',
+			fillOpacity: 0.1
+		  };
+		  
+		var divStyle={
+			fillColor: "white",
+			weight: 1,
+			opacity: 1,
+			color: 'blue',
+			dashArray: '3',
+			fillOpacity: 0.1
+		  };  
+		
+		var divStyle_new={
+			fillColor: "white",
+			weight: 1,
+			opacity: 1,
+			color: '#CC00CC',
+			dashArray: '3',
+			fillOpacity: 0.1
+		  };  
+		
+		function onEachFeature(feature, layer){
+				var popup = '';
+				for (var clave in feature.properties) { 
+				  popup += clave +':'+ feature.properties[clave]+'<br />';
+				}
+				layer.bindPopup(popup);
+			 }
+
+		$.getJSON("./assets/GCC_ZONE.geojson",function(data){
+			// add GeoJSON layer to the map once the file is loaded
+			zone=L.geoJson(
+			data,
+			{style: zoneStyle_new,
+			onEachFeature: onEachFeature,
+			 }
+			).addTo(map);
+			map.fitBounds(zone.getBounds());
+			lctrl.addOverlay(zone, "<span style='color:red;'>New Zone </span>");
+			
+		});
+		
+		$.getJSON("/gcc/citizen-details/location-service/assets/GCC_ZONE.geojson",function(data){
+			// add GeoJSON layer to the map once the file is loaded
+			zone=L.geoJson(
+			data,
+			{style: zoneStyle,
+			onEachFeature: onEachFeature,
+			 }
+			).addTo(map);
+			map.fitBounds(zone.getBounds());
+			lctrl.addOverlay(zone, "<span style='color:green;'>Exist Zone</span>");
+			
+		});
+		
+		$.getJSON("/gcc/citizen-details/location-service/assets/GCC_DIVISION.geojson",function(data){
+			// add GeoJSON layer to the map once the file is loaded
+		  division=L.geoJson(
+			data,
+			{style: divStyle,
+			onEachFeature: onEachFeature,
+			 }
+			).addTo(map);
+			lctrl.addOverlay(division, "<span style='color:blue;'>Exist Division </span> ");
+		});
+									   
+
+		$.getJSON("./assets/GCC_DIVISION.geojson",function(data){
+			// add GeoJSON layer to the map once the file is loaded
+		  division=L.geoJson(
+			data,
+			{style: divStyle_new,
+			onEachFeature: onEachFeature,
+			 }
+			).addTo(map);
+			lctrl.addOverlay(division, "<span style='color:#CC00CC;'>New Division</span> ");
+		});
 			}
 		});
 	}
