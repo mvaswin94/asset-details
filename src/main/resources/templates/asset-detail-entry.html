@@ -124,11 +124,11 @@
                 <div class="col-md-4">
                   <label for="assetGeoLocation" class="form-label">Latitude</label>
                   <!-- <input type="text" class="form-control" id="assetLatitude" onclick="getLocation()"> -->
-                  <input type="text" class="form-control" id="assetLatitude" data-bs-toggle="modal" data-bs-target="#largeModal">
+                  <input type="text" class="form-control" id="assetLatitude" data-bs-toggle="modal" data-bs-target="#largeModal" readonly>
                 </div> 
                 <div class="col-md-4">
                   <label for="assetGeoLocation" class="form-label">Longitude</label>
-                  <input type="text" class="form-control" id="assetLongitude" data-bs-toggle="modal" data-bs-target="#largeModal">
+                  <input type="text" class="form-control" id="assetLongitude" data-bs-toggle="modal" data-bs-target="#largeModal" readonly>
                 </div> 
                 
                 <!-- Large Modal -->
@@ -268,7 +268,7 @@ function getLocation(){
 	
 	$.ajax({
 			type : "GET",
-			url : '/asset/test/map',
+			url : '/asset/entry/map',
 			data : {
 				'locationName' : locationName
 			},
