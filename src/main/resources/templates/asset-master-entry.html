@@ -2,7 +2,7 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
 <!-- head tag -->
-<div th:replace="/fragment/Head.html::head"></div>
+<div th:replace="fragment/Head.html::head"></div>
 
 <script>
 $(document).ready(function(){
@@ -45,10 +45,10 @@ $('#assetMasterEntryFormRest').click(function(){
 <body>
 	
 	<!-- header tag -->
-  	<div th:replace="/fragment/Header.html::header"></div>
+  	<div th:replace="fragment/Header.html::header"></div>
 
 	<!-- sidebar tag -->
-  	<div th:replace="/fragment/SideBar.html::sidebar"></div>
+  	<div th:replace="fragment/SideBar.html::sidebar"></div>
 
   <main id="main" class="main">
 
@@ -156,13 +156,13 @@ $('#assetMasterEntryFormRest').click(function(){
   </main><!-- End #main -->
 
 <!-- Footer -->	
-	<div th:replace="/fragment/Footer.html::footer	"></div>
+	<div th:replace="fragment/Footer.html::footer	"></div>
 
 <!-- Go to Top -->
 	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- Footer -->	
-	<div th:replace="/fragment/Js.html::js"></div>
+	<div th:replace="fragment/Js.html::js"></div>
 
 </body>
 
